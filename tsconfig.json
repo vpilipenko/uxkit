@@ -1,0 +1,18 @@
+{
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "tools",
+    ".idea"
+  ],
+  "allowSyntheticDefaultImports": true,
+  "experimentalDecorators": true,
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "target": "ES6",
+    "jsx": "react",
+    "module": "commonjs"
+  },
+}
