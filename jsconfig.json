@@ -1,0 +1,14 @@
+{
+  "experimentalDecorators": true,
+  "exclude": ["node_modules", "build", "tools", ".idea"],
+  "allowSyntheticDefaultImports": true,
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "compilerOptions": {
+    "target": "ES6",
+    "jsx": "react",
+    "module": "commonjs"
+  }
+}

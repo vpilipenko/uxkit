@@ -1,4 +1,5 @@
 const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const rules = [
     {
@@ -21,12 +22,58 @@ const rules = [
         ],
     },
     {
+        test: /\.(styl)$/,
+        use: [
+            {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    publicPath: '/public/path/to/',
+                },
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                url: true,
+                modules: {
+                  localIdentName: '[name]__[local]___[hash:base64:5]'
+                }
+              }
+            },
+            {
+              loader: 'stylus-loader?resolve url'
+            },
+        ].filter(f => f),
+    },
+    {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: {
             loader: "babel-loader",
             options: {
-                presets: ['@babel/preset-env', '@babel/react']
+                presets: [
+                    '@babel/preset-env',
+                    '@babel/react'
+                ],
+                plugins: [
+                    ["@babel/plugin-transform-classes", {
+                        "loose": true
+                    }],
+                    [
+                        "@babel/plugin-proposal-class-properties",
+                        { "loose": true }
+                    ],
+
+                    
+                    "jsx-control-statements",
+                    "@babel/plugin-proposal-export-default-from",
+                    // [
+                    //   "@babel/plugin-proposal-decorators",
+                    //   { "legacy": true }
+                    // ],
+                    
+
+                ],
             }
         }
     }
