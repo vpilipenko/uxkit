@@ -1,84 +1,49 @@
-const path = require('path')
+const pkg = require('./package.json');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
+const rules = require('./configs/rules.config');
+const { aliases } = require('./configs/aliases.config');
+const webpack = require('webpack')
+const nodeExternals = require('webpack-node-externals');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 
 module.exports = {
-  entry: './src/index.js',
+    entry: './src/index.js',
+    output: {
+        filename: pkg.main,
+        library: '',
 
-  output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
-  },
-
-  resolve: {
-    extensions: ['.js', '.jsx']
-  },
-
-  devServer: {
-    open: 'Google Chrome',
-    contentBase: [path.resolve(__dirname, 'assets')],
-    compress: true,
-    historyApiFallback: true,
-    port: 1234,
-    quiet: true,
-  },
-
-  module: {
-    rules: [
-      {
-        test: /\.(eot|otf|svg|ttf|woff|woff2)$/,
-        use: [
-          {
-            loader: 'url-loader',
-          }
-        ]
+        libraryTarget: 'commonjs'
+    },
+    target: 'node',
+    externals: [nodeExternals()],
+    module: {
+        rules: rules
+    },
+    externals:{
+        "react": "React",
+        "react-dom": "ReactDOM"
       },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      },
-      {
-        test: /\.styl$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]'
-              }
-            }
-          },
-          'postcss-loader',
-          {
-            loader: 'stylus-loader'
-          },
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-        ]
-      }
-    ]
-  },
+    resolve: {
+        alias: aliases,
+        extensions: ['.js', '.jsx' ],
+        modules: ['node_modules'],
+    },
+    plugins: [
+        process.env.NODE_ENV === 'production' && new MiniCssExtractPlugin({
+            filename: '[name]_[contenthash].css',
+        }),
+    ].filter(f => f),
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
-    new Dotenv()
-  ]
-}
+    optimization: {
+        minimize: false,
+        splitChunks: {
+            chunks: 'all',
+            minChunks: 2
+        },
+        runtimeChunk: true,
+        // runtimeChunk: {
+        //     name: entrypoint => `runtime~${entrypoint.name}`
+        // },
+    }
+};

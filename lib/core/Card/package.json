@@ -1,0 +1,27 @@
+{
+    "name": "@vpilipenko/card",
+    "description": "Card component",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": "Vasiliy Pilipenko",
+    "main": "dist/index.js",
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "NODE_ENV=development rollup --config ../../../rollup.config.js",
+
+        "_build": "cross-env NODE_ENV=production webpack -p --config ../../../webpack.config.js --profile --json > stats.json",
+
+        "clean": "rimraf dist && rimraf node_modules && rimraf package-lock.json",
+        "analyze": "webpack-bundle-analyzer stats.json dist/ -h 192.168.102.15",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "peerDependencies": {
+        "react": "^16.8.2",
+        "react-dom": "^16.8.2"
+    },
+    "dependencies": {
+        "webpack": "^4.41.6"
+    }
+}
