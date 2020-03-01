@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/tabs",
     "description": "Tabs component",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -17,8 +17,5 @@
     "peerDependencies": {
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
-    },
-    "dependencies": {
-        
     }
 }
