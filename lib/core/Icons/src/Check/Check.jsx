@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Icon from '../../Icon/src'
-
 const Check = props => {
   const { id, width, height, fill } = props
   return (
@@ -16,4 +14,4 @@ const Check = props => {
   )
 }
 
-export default props => <Icon {...props}><Check /></Icon>
+export default Check

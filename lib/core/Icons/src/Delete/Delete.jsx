@@ -1,8 +1,5 @@
 import React from 'react'
 
-import Icon from '../../Icon/src'
-
-
 const Delete = props => {
   const { id, width, height, fill } = props
 
@@ -15,4 +12,4 @@ const Delete = props => {
   )
 }
 
-export default props => <Icon {...props}><Delete /></Icon>
+export default Delete

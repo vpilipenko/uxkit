@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Icon from '../../Icon/src'
-
 export const Cross = props => {
   const { id, width, height, fill } = props
   return (
@@ -18,4 +16,4 @@ export const Cross = props => {
   )
 }
 
-export default props => <Icon {...props}><Cross /></Icon>
+export default Cross

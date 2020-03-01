@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Icon from '../../Icon/src'
-
 const ArrowLeft = props => {
   const { id, width, height, fill } = props
   return (
@@ -18,4 +16,4 @@ const ArrowLeft = props => {
   )
 }
 
-export default props => <Icon {...props}><ArrowLeft /></Icon>
+export default ArrowLeft

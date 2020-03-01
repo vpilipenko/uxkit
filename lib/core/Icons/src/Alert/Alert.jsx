@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Icon from '../../Icon/src'
-
 export const Alert = props => {
   const { id, width, height, fill }= props
   return (
@@ -17,4 +15,4 @@ export const Alert = props => {
   )
 }
 
-export default props => <Icon {...props}><Alert /></Icon>
+export default Alert

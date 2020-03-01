@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Icon from '../../Icon/src'
-
 const Hamburger = props => {
   const { id, width, height, fill } = props
   return (
@@ -15,4 +13,4 @@ const Hamburger = props => {
   )
 }
 
-export default props => <Icon {...props}><Hamburger /></Icon>
+export default Hamburger

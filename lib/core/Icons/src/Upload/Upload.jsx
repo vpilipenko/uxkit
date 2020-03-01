@@ -1,8 +1,5 @@
 import React from 'react'
 
-import Icon from '../../Icon'
-
-
 const Upload = props => {
   const { id, width, height, fill } = props
   return (
@@ -14,4 +11,4 @@ const Upload = props => {
   )
 }
 
-export default props => <Icon {...props}><Upload /></Icon>
+export default Upload
