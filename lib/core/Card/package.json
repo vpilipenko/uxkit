@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/card",
     "description": "Card component",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -9,7 +9,9 @@
         "access": "public"
     },
     "bin": "./dist/",
-    "files": [ "dist/*" ],
+    "files": [
+        "dist/*"
+    ],
     "scripts": {
         "build": "NODE_ENV=development rollup --config ../../../rollup.config.js",
         "_build": "cross-env NODE_ENV=production webpack -p --config ../../../webpack.config.js --profile --json > stats.json",
