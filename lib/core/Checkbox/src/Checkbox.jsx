@@ -61,6 +61,7 @@ class Checkbox extends Component {
       ...other
     } = this.props
 
+    
     return (
       <label
         htmlFor={id}
