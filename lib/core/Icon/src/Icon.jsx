@@ -19,6 +19,7 @@ const Icon = props => {
   )
 }
 
+
 Icon.propTypes = {
   /** Component ID in DOM */
   id: PropTypes.string,
