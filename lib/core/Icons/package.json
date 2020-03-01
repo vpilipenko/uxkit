@@ -25,5 +25,8 @@
     "peerDependencies": {
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
+    },
+    "devDependencies": {
+        "@vpilipenko/icon": "0.0.2"
     }
 }
