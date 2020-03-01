@@ -1,14 +1,19 @@
-import cm from './Icon.module.styl'
-
 import React from 'react'
 
-import PropTypes, { oneOfType } from 'prop-types'
-import cx from 'classnames'
+import PropTypes from 'prop-types'
 
 const Icon = props => {
   const { id, size, width, height, fill, className, children, ...other } = props
   return (
-    <div className={cx(cm.icon, className)} {...other}>
+    <div
+      className={className}
+      style={{
+        display: 'inline-flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+      {...other}
+    >
       {React.cloneElement(children, {
         id,
         width: width || size,
@@ -24,17 +29,17 @@ Icon.propTypes = {
   /** Component ID in DOM */
   id: PropTypes.string,
   /** Total value for width and height in 'px' */
-  size: oneOfType([
+  size: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
   /** Width in 'px' */
-  width: oneOfType([
+  width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
   /** Height in 'px'*/
-  height: oneOfType([
+  height: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
