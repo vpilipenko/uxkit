@@ -1,9 +1,23 @@
-import { configure } from '@storybook/react';
+import { addDecorator, addParameters, configure } from '@storybook/react';
+import { addReadme, configureReadme } from 'storybook-readme';
 
-const req = require.context('../lib/core', true, /.stories.js$/);
+addDecorator(addReadme);
 
-const loadStories = () => {
-    req.keys().forEach((filename) => req(filename))
-};
+addParameters({
+  options: {
+    name: 'uxKit',
+    panelPosition: 'right',
+  },
+  readme: {
+    codeTheme: 'hopscotch',
+  }
+})
 
-configure(loadStories, module);
+configureReadme({});
+
+const requred = require
+  .context('../lib', true, /.story\.jsx?$/)
+
+configure(() => {
+  requred.keys().forEach(requred)
+}, module)

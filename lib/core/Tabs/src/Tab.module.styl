@@ -1,0 +1,78 @@
+.tab {
+	position: relative
+	display: inline
+	margin: 0
+	padding: 0
+	outline: none
+	border: 0
+	background-color: transparent
+	font-weight: 400
+	line-height: 1.5
+	cursor: pointer
+	transition: all .15s ease-in-out
+
+	&:after {
+		position: absolute
+		left: 0
+		width: 100%
+		background-color: transparent
+		content: ''
+		transition: all .2s ease-in-out
+		transform: scale(1, 0)
+	}
+
+	&.active {
+		&:after {
+			transform: scale(1, 1)
+		}
+	}
+
+	&.size-s {
+		margin-right: 1rem
+		padding: .375rem 0
+		font-size: .875rem
+
+		&:after {
+			bottom: -1px
+			height: 1px
+		}
+	}
+
+	&.size-m {
+		margin-right: 1.5rem
+		padding: .375rem 0
+		font-size: 1rem
+
+		&:after {
+			bottom: -2px
+			height: 3px
+		}
+	}
+
+	&.size-l {
+		margin-right: 2rem
+		padding: .75rem 0
+		font-size: 1.25rem
+
+		&:after {
+			bottom: -3px
+			height: 5px
+		}
+	}
+
+	&.theme-light {
+		color: #A1A0A1
+
+		&.active {
+			color: #282728
+
+			&:after {
+				background-color: #0041FF
+			}
+		}
+	}
+
+	&.theme-dark {
+		color: white
+	}
+}

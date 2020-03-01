@@ -1,0 +1,78 @@
+.form_group {
+	display: flex
+	flex-direction: column
+
+	.content {
+		display: flex
+		flex-direction: column
+		align-items: flex-start
+
+		.hint {
+			margin-top: .5rem
+			opacity: .4
+		}
+	}
+
+	&.size-s {
+		margin-bottom: 1rem
+
+		.label {
+			margin-bottom: 4px
+			font-size: 14px
+			line-height: 18px
+		}
+	}
+
+	&.size-m {
+		margin-bottom: 1.5rem
+
+		.label {
+			margin-bottom: 8px
+			font-size: 16px
+			line-height: 24px
+		}
+	}
+
+	&.size-l {
+		margin-bottom: 2rem
+
+		.label {
+			margin-bottom: 12px
+			font-size: 20px
+			line-height: 30px
+		}
+	}
+
+	&.theme-light {
+		.label {
+			color: #282728
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		&.inline {
+			flex-direction: row
+			margin-right: -.5rem
+			margin-left: -.5rem
+
+			.label {
+				flex-shrink: 0
+				padding-right: .5rem
+				padding-left: .5rem
+				max-width: 14rem
+				width: 100%
+			}
+
+			.content {
+				flex-grow: 1
+				flex-direction: row
+				padding-right: .5rem
+				padding-left: .5rem
+
+				.hint {
+					margin-left: 1rem
+				}
+			}
+		}
+	}
+}

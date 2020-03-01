@@ -1,17 +1,18 @@
-const rules = require('../configs/rules.config');
-const { aliases } = require('../configs/aliases.config');
+const path = require('path')
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+module.exports = async ({ config }) => {
+  config.module.rules.push({
+    test: /\.module\.styl$/,
+    use: ['style-loader', {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+        modules: true,
+        // localIdentName: '[name]__[local]___[hash:base64:5]'
+      }
+    }, 'stylus-loader'],
+    include: path.resolve(__dirname, '../'),
+  });
 
-
-module.exports = (baseConfig, env, defaultConfig) => {
-    defaultConfig.module.rules = rules;
-    defaultConfig.resolve.alias = aliases;
-    defaultConfig.plugins = [
-        new MiniCssExtractPlugin({
-            filename: '[name]_[contenthash].css',
-        }),
-    ];
-
-    return defaultConfig;
-};
+  return config
+}
