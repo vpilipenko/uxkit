@@ -8,7 +8,10 @@
     "publishConfig": {
         "access": "public"
     },
-    "bin": "./dist",
+    "bin": {
+        "": "./dist/index.js",
+        "styles.css": "./dist/styles.css"
+    },
     "files": [
         "dist/*"
     ],
