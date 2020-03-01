@@ -10,7 +10,7 @@
     },
     "bin": {
         "": "./dist/index.js",
-        "styles.css": "./dist/styles.css"
+        "styles": "./dist/styles.css"
     },
     "files": [
         "dist/*"
