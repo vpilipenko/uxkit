@@ -8,6 +8,7 @@
     "publishConfig": {
         "access": "public"
     },
+    "files": [ "dist/*" ],
     "scripts": {
         "build": "NODE_ENV=development rollup --config ../../../rollup.config.js",
         "clean": "rimraf dist && rimraf node_modules && rimraf package-lock.json",
