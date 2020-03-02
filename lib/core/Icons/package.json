@@ -17,7 +17,7 @@
         "url": "https://github.com/vpilipenko/uxkit"
     },
     "scripts": {
-        "build": "NODE_ENV=development rollup --config ../../../rollup.config.js",
+        "build": "npm install && NODE_ENV=development rollup --config ../../../rollup.config.js",
         "clean": "rimraf dist && rimraf node_modules && rimraf package-lock.json",
         "analyze": "webpack-bundle-analyzer stats.json dist/ -h 192.168.102.15",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,7 +26,7 @@
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
     },
-    "devDependencies": {
-        "@vpilipenko/icon": "0.0.2"
+    "dependencies": {
+        "@vpilipenko/icon": "0.0.4"
     }
 }

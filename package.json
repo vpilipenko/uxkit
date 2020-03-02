@@ -6,7 +6,7 @@
   "scripts": {
     "build:components": "lerna bootstrap && lerna exec npm run \"build\"",
     "clean:components": "lerna exec npm run \"clean\"",
-    "publish:components": "lerna publish",
+    "publish:components": "build:components && lerna publish",
     "analyze:components": "lerna bootstrap && lerna exec npm run \"analyze\"",
     "story": "start-storybook -p 9001 -c .storybook",
     "clean": "rm -rf dist && mkdir dist && rm -rf .cache && ls | grep *.html | xargs rm"

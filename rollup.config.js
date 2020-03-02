@@ -18,7 +18,8 @@ export default {
   output: {
     file: `./dist/${pkg.main}`,
     format: 'cjs',
-    compact: true,
+    exports: 'named',
+    // compact: true,
   },
   external: [
     'react',
@@ -35,8 +36,12 @@ export default {
       extensions: ['.jsx', '.js', '.json'],
     }),
     commonjs({
-      include: /node_modules/,
-      namedExports: { 'react': ['Component', 'createElement', 'cloneElement'] },
+      include: [ 
+        /node_modules/, 
+        path.resolve(__dirname, './lib/core/'),
+      ],
+      preserveSymlinks: true,
+      // namedExports: { 'react': ['Component', 'createElement', 'cloneElement'] },
     }),
     stylusCssModules({
       sourceMap: false,
