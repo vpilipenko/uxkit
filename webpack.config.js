@@ -34,16 +34,4 @@ module.exports = {
             filename: '[name]_[contenthash].css',
         }),
     ].filter(f => f),
-
-    optimization: {
-        minimize: false,
-        splitChunks: {
-            chunks: 'all',
-            minChunks: 2
-        },
-        runtimeChunk: true,
-        // runtimeChunk: {
-        //     name: entrypoint => `runtime~${entrypoint.name}`
-        // },
-    }
 };

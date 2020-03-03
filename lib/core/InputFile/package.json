@@ -9,7 +9,9 @@
         "access": "public"
     },
     "bin": "./dist/",
-    "files": [ "dist/*" ],
+    "files": [
+        "dist/*"
+    ],
     "scripts": {
         "build": "NODE_ENV=production rollup --config ../../../rollup.config.js",
         "clean": "rimraf dist && rimraf node_modules && rimraf package-lock.json",
@@ -21,6 +23,8 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        
+        "@vpilipenko/button": "0.0.12",
+        "@vpilipenko/icon-button": "0.0.12",
+        "@vpilipenko/icons": "0.0.14"
     }
 }

@@ -2,9 +2,8 @@ import cm from './InputFile.module.styl'
 
 import React, { Component } from 'react'
 
-// TODO: replace from package.json
-// import Button from '../../Button/src'
-// import Upload from '../../icons/Upload'
+import Button from '@vpilipenko/button'
+import { Upload } from '@vpilipenko/icons'
 
 
 class FileButton extends Component {
@@ -28,13 +27,11 @@ class FileButton extends Component {
     } = this.props
 
     let Component = (
-      // TODO: replace from package.json
-      // <Button
-      //   text='Загрузить'
-      //   prefix={<Upload />}
-      //   onClick={onClick}
-      // />
-      <button onClick={onClick}>Загрузить</button>
+      <Button
+        text='Загрузить'
+        prefix={<Upload />}
+        onClick={onClick}
+      />
     )
 
     if (typeof buttonComponent === 'function') {
