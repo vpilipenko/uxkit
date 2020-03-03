@@ -2,7 +2,7 @@
 .yarn_cache
 node_modules
 dist/
-lib/core/**/dist/
+lib/core/**/dist/*
 *.log
 .DS_Store
 rm

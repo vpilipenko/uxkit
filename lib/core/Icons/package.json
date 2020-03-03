@@ -26,7 +26,5 @@
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
     },
-    "dependencies": {
-        "@vpilipenko/icon": "^0.0.5"
-    }
+    "dependencies": {}
 }

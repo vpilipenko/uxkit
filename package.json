@@ -68,6 +68,8 @@
     "moment": "^2.24.0"
   },
   "dependencies": {
+    "@vpilipenko/icon-button": "0.0.11",
+    "@vpilipenko/icons": "0.0.12",
     "classnames": "^2.2.6",
     "react": "16.13.0",
     "react-dom": "16.13.0"

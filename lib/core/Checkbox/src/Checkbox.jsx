@@ -5,9 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-// TODO: Replace by import from lib
-// import Check from '../../icons/Check'
-
+import { Check } from '@vpilipenko/icons/dist/index'
 
 class Checkbox extends Component {
 
@@ -79,8 +77,7 @@ class Checkbox extends Component {
 
         <div className={cm.fake_box}>
           <If condition={checked}>
-          {/* <Check className={cm.icon} /> */}
-            <span className={cm.icon}>√</span>
+            <Check className={cm.icon} />
           </If>
         </div>
 

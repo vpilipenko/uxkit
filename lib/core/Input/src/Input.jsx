@@ -5,8 +5,7 @@ import React, { Component } from 'react'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 
-// TODO: replace from package.json
-// import Cross from '../../icons/Cross'
+import { Cross } from '@vpilipenko/icons'
 
 
 export class Input extends Component {
@@ -268,9 +267,7 @@ export class Input extends Component {
                       onClick={this.handleClear}
                       disabled={disabled}
                     >
-                      {/* TODO: replace by package.json */}
-                      {/* <Cross className={cm.cross_icon} /> */}
-                      <div className={cm.cross_icon}>✕</div>
+                      <Cross className={cm.cross_icon} />
                     </button>
                   </If>
                 </div>
