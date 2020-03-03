@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/logo",
     "description": "Logo component",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
