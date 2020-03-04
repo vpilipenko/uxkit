@@ -1,8 +1,10 @@
-import cm from './InputFile.module.styl'
+// import cm from './InputFile.module.styl'
 
 import React, { Component } from 'react'
 
 import Button from '@vpilipenko/button'
+import '@vpilipenko/button/dist/styles.css'
+
 import { Upload } from '@vpilipenko/icons'
 
 

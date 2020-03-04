@@ -4,13 +4,13 @@
     "@babel/preset-react"
   ],
   "plugins": [
+    "jsx-control-statements",
     [
       "@babel/plugin-proposal-decorators",
       {
         "legacy": true
       }
     ],
-    "jsx-control-statements",
     [
       "@babel/plugin-proposal-class-properties",
       {

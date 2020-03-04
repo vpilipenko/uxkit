@@ -1,16 +1,11 @@
+const path = require('path')
+
 module.exports = {
   stories: ['../lib/**/*.story.(js|mdx)'],
   addons: [
     '@storybook/addon-actions/register',
     '@storybook/addon-knobs/register',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-        babelOptions: {},
-        sourceLoaderOptions: null,
-      },
-    },
+    '@storybook/addon-docs'
   ],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -33,8 +28,16 @@ module.exports = {
         {
           loader: 'stylus-loader?resolve url'
         },
-      ].filter(f => f)
-    });
+      ],
+    })
+
+    config.module.rules.push({
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader'
+      }
+    })
 
     
 

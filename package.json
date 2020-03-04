@@ -4,7 +4,8 @@
   "description": "some UX components",
   "main": "index.js",
   "scripts": {
-    "build:components": "lerna exec npm install && lerna exec npm run \"build\"",
+    "install:components": "lerna exec npm install",
+    "build:components": "lerna exec npm run \"build\"",
     "clean:components": "lerna exec npm run \"clean\"",
     "publish:components": "npm run build:components && lerna publish",
     "analyze:components": "lerna bootstrap && lerna exec npm run \"analyze\"",
