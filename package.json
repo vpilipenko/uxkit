@@ -7,7 +7,7 @@
     "install:components": "lerna exec npm install",
     "build:components": "lerna exec npm run \"build\"",
     "clean:components": "lerna exec npm run \"clean\"",
-    "publish:components": "npm run build:components && lerna publish",
+    "publish:components": "lerna publish",
     "analyze:components": "lerna bootstrap && lerna exec npm run \"analyze\"",
     "dev": "start-storybook -p 9001 -c ./.storybook",
     "clean": "rm -rf dist && mkdir dist && rm -rf .cache && ls | grep *.html | xargs rm"
