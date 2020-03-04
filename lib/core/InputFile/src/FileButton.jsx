@@ -8,10 +8,34 @@ import { Upload } from '@vpilipenko/icons'
 
 class FileButton extends Component {
 
+  renderHintOrError = _ => {
+    const { hint, error } = this.props
+
+    if (!!hint && !error) {
+      return (
+        <div className={cm.hint}>
+          {hint}
+        </div>
+      )
+    }
+
+    if (!!error) {
+      return (
+        <div className={cm.error}>
+          {error}
+        </div>
+      )
+    }
+
+    return null
+  }
+
+
   handleInputRef = node => {
     const { inputRef } = this.props
     inputRef && inputRef(node)
   }
+
 
   render() {
     const {
@@ -20,8 +44,6 @@ class FileButton extends Component {
       accept,
       capture,
       multiple,
-      hint,
-      error,
       onClick,
       onChange,
     } = this.props
@@ -43,16 +65,7 @@ class FileButton extends Component {
         <div className={cm.button}>
           {Component}
         </div>
-        <If condition={!!hint && !error}>
-          <div className={cm.hint}>
-            {hint}
-          </div>
-        </If>
-        <If condition={!!error}>
-          <div className={cm.error}>
-            {error}
-          </div>
-        </If>
+        {this.renderHintOrError()}
         <input
           name={name}
           className={cm.input}

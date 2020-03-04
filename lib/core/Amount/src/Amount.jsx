@@ -22,7 +22,10 @@ class Amount extends Component {
 
   static propTypes = {
     /** Amount value */
-    amount: PropTypes.number,
+    amount: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     /** Currency one of ['rur', 'eur', 'usd', false] */
     currency: PropTypes.oneOf(['rur', 'eur', 'usd', false]),
     /** Overwrite currency signs */
@@ -46,22 +49,36 @@ class Amount extends Component {
   constructor(props) {
     super(props)
     const { amount } = props
-    this.integer = (cachei[amount] || (cachei[amount] = this.parseInteger(props.amount)))
-    this.fractial = (cachef[amount] || (cachef[amount] = this.parseFractial(props.amount)))
+    this.state = {
+      integer: (cachei[amount] || (cachei[amount] = this.parseInteger(amount))),
+      fractial: (cachef[amount] || (cachef[amount] = this.parseFractial(amount))),
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { amount } = this.props
+    if (prevProps.amount !== amount) {
+      this.setState({
+        integer: (cachei[amount] || (cachei[amount] = this.parseInteger(amount))),
+        fractial: (cachef[amount] || (cachef[amount] = this.parseFractial(amount))),
+      })
+    }
   }
 
 
   parseInteger = a => {
-    return numeral(+a).format('0')
+    const parse = numeral(parseFloat(a)).format('0,0.00')
+    return parse.slice(0, parse.length - 3)
   }
 
   parseFractial = a => {
-    return numeral(+a).format('.00')
+    const parse = numeral(parseFloat(a)).format('.00')
+    return parse.replace('-', '')
   }
 
 
   renderInteger = _ => {
-    const { integer } = this
+    const { integer } = this.state
 
     return (
       <span className={cm.integer}>
@@ -71,7 +88,7 @@ class Amount extends Component {
   }
 
   renderFractial = _ => {
-    const { fractial } = this
+    const { fractial } = this.state
 
     return (
       <span className={cm.fractial}>
@@ -108,7 +125,6 @@ class Amount extends Component {
       amount, currencies,
       ...other
     } = this.props
-
 
     if (currency && currency.toLowerCase() === 'rur') {
       numeral.locale('ru')

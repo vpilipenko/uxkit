@@ -1,0 +1,21 @@
+import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
+import Amount from './src';
+
+
+<Meta title='Amount' component={Amount} />
+
+# Amount
+
+Some **markdown** description, or whatever you want.
+
+<Preview>
+  <Story name='basic'>
+  <div>
+    {['s', 'm', 'l'].map(size => <Amount amount={1020} />)}
+  </div>
+  </Story>
+</Preview>
+
+## Props
+
+<Props of={Amount} />
