@@ -9,8 +9,21 @@ module.exports = {
   ],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
+    config.module.rules = config.module.rules.reduce((acc, rule) => {
+      if (rule.test.toString().includes('.css')) {
+        acc.push({
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        })
+      } else {
+        acc.push(rule)
+      }
+      return acc
+    }, [])
+
+
     config.module.rules.push({
-      test: /\.(css|styl)$/,
+      test: /\.(styl)$/,
       use: [
         {
           loader: 'style-loader'

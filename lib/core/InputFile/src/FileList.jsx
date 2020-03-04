@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { humanizeFileSize } from './utils'
 
 import IconButton from '@vpilipenko/icon-button'
+import '@vpilipenko/icon-button/dist/styles.css'
 
 import { Delete } from '@vpilipenko/icons'
 

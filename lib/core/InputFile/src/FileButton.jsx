@@ -1,4 +1,4 @@
-// import cm from './InputFile.module.styl'
+import cm from './InputFile.module.styl'
 
 import React, { Component } from 'react'
 
