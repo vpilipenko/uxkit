@@ -65,6 +65,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@vpilipenko/text": "^0.0.15",
     "classnames": "^2.2.6",
     "react": "16.13.0",
     "react-dom": "16.13.0"

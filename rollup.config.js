@@ -3,8 +3,8 @@ import pkg from './package.json'
 import path from 'path';
 
 import babel from "rollup-plugin-babel"
-import commonjs from "@rollup/plugin-commonjs"
 import resolve from "@rollup/plugin-node-resolve"
+import commonjs from "@rollup/plugin-commonjs"
 import postcss from 'rollup-plugin-postcss'
 import minify from 'rollup-plugin-babel-minify'
 
@@ -20,15 +20,16 @@ export default {
     'react',
     'react-dom',
     'prop-types',
+    'classnames',
   ],
   plugins: [
-    babel({
-      configFile: path.resolve(__dirname, 'babel.config.js'),
-      exclude: /node_modules/,
-      extensions: [".js", ".jsx"],
-    }),
     resolve({
       extensions: ['.jsx', '.js', '.json'],
+    }),
+    babel({
+      configFile: path.resolve(__dirname, 'babel.config.js'),
+      exclude: [/node_modules/, path.resolve(__dirname, './lib/core/Select/node_modules')],
+      extensions: [".js", ".jsx"],
     }),
     commonjs({
       include: [ 

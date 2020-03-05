@@ -2,8 +2,6 @@ import cm from './Breadcrumbs.module.styl'
 
 import React, { Component } from 'react'
 
-import { Link } from 'react-router-dom'
-
 
 class Breadcrumbs extends Component {
 
@@ -12,16 +10,20 @@ class Breadcrumbs extends Component {
   }
 
   render() {
-    const { breadcrumbs } = this.props
-
+    const { breadcrumbs, linkComponent } = this.props
+    
     return (
       <div className={cm.breadcrumbs}>
         {breadcrumbs.map((crumb, index) => {
+          let Component = <a href={crumb.to}>{crumb.name}</a>
+
+          if (typeof(linkComponent) === 'function') {
+            Component = linkComponent({ crumb, index })
+          }
+
           return (
             <span className={cm.crumb} key={`${crumb.to}_${index}`}>
-              <Link to={crumb.to}>
-                {crumb.name}
-              </Link>
+              {Component}
             </span>
           )
         })}

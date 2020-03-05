@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom'
 
 import PropTypes from 'prop-types'
 
+const { Manager, Reference, Popper } = require('react-popper')
+
+const Menu = require('@vpilipenko/menu')
+require('@vpilipenko/menu/dist/styles.css')
+
+const MenuItem = require('@vpilipenko/menu-item')
+require('@vpilipenko/menu-item/dist/styles.css')
+
 import { findClosest, getElIndex } from './utils'
 
 import ValueButton from './ValueButton'
-import { Manager, Reference, Popper } from 'react-popper'
-import Menu from '@vpilipenko/menu'
-import '@vpilipenko/menu/dist/styles.css'
-import MenuItem from '@vpilipenko/menu-item'
-import '@vpilipenko/menu-item/dist/styles.css'
 import Portal from './Portal'
 
 

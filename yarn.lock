@@ -2929,6 +2929,11 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@vpilipenko/text@^0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@vpilipenko/text/-/text-0.0.15.tgz#6a933dcbb9eb75293ab43a5af2aa24b0e5f1c6d7"
+  integrity sha512-ZBMqpX1lWv6MKf4s1tfok15L0Uf3MzLtVPeRKUjOyQeiTrstmWv1yyN5TDW9ud7hIyVfyfP24U+9cGjDdScaUQ==
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"

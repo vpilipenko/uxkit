@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-// TODO: 'Заменить за импорт'
-// import Text from '../../Text/src/Text'
+
+const Text = require('@vpilipenko/text')
 
 
 class FormGroup extends Component {
-
   static propTypes = {
     /** Лейбл группы */
     label: PropTypes.node,
@@ -84,8 +83,7 @@ class FormGroup extends Component {
           <div className={cm.content}>
             {this.renderChildren(children)}
             <If condition={hint}>
-              {/* <Text size='s' className={cm.hint}>{hint}</Text> */}
-              <div>{hint}</div>
+              <Text size='s' className={cm.hint}>{hint}</Text>
             </If>
           </div>
         </If>
