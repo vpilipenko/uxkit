@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 import cx from 'classnames'
 
-const { ArrowTop } = require('@vpilipenko/icons')
+const { ArrowTop } = require('@vpilipenko/icons').default
 
 
 class ValueButton extends Component {

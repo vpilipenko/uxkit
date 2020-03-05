@@ -2,7 +2,6 @@ import cm from './Breadcrumbs.module.styl'
 
 import React, { Component } from 'react'
 
-
 class Breadcrumbs extends Component {
 
   static defaultProps = {

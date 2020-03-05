@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom'
 
 import PropTypes from 'prop-types'
 
-const { Manager, Reference, Popper } = require('react-popper')
+const { Manager, Reference, Popper } = require('react-popper').default
 
-const Menu = require('@vpilipenko/menu')
-require('@vpilipenko/menu/dist/styles.css')
+const Menu = require('@vpilipenko/menu').default
+require('@vpilipenko/menu/dist/styles.css').default
 
-const MenuItem = require('@vpilipenko/menu-item')
-require('@vpilipenko/menu-item/dist/styles.css')
+const MenuItem = require('@vpilipenko/menu-item').default
+require('@vpilipenko/menu-item/dist/styles.css').default
 
 import { findClosest, getElIndex } from './utils'
 
