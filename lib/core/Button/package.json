@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/button",
     "description": "Button component",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -25,6 +25,6 @@
     },
     "dependencies": {
         "@vpilipenko/amount": "^0.0.14",
-        "@vpilipenko/icons": "^0.0.16"
+        "@vpilipenko/icons": "^0.0.17"
     }
 }

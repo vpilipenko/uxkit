@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input",
     "description": "Input component",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -23,6 +23,6 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/icons": "^0.0.16"
+        "@vpilipenko/icons": "^0.0.17"
     }
 }
