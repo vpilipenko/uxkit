@@ -22,9 +22,9 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/icons": "^0.0.18",
-        "@vpilipenko/menu": "^0.0.2",
-        "@vpilipenko/menu-item": "^0.0.2",
+        "@vpilipenko/icons": "^0.0.19",
+        "@vpilipenko/menu": "^0.0.3",
+        "@vpilipenko/menu-item": "^0.0.3",
         "react-popper": "^1.3.7"
     }
 }
