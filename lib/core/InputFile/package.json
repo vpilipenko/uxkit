@@ -22,8 +22,8 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/button": "^0.0.17",
-        "@vpilipenko/icon-button": "^0.0.17",
-        "@vpilipenko/icons": "^0.0.18"
+        "@vpilipenko/button": "^0.0.19",
+        "@vpilipenko/icon-button": "^0.0.19",
+        "@vpilipenko/icons": "^0.0.19"
     }
 }
