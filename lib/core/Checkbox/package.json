@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/checkbox",
     "description": "Checkbox component",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -23,6 +23,6 @@
     },
     "dependencies": {
         "1": "^0.1.2",
-        "@vpilipenko/icons": "^0.0.17"
+        "@vpilipenko/icons": "^0.0.18"
     }
 }

@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input",
     "description": "Input component",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -23,6 +23,6 @@
     },
     "dependencies": {
         "1": "^0.1.2",
-        "@vpilipenko/icons": "^0.0.17"
+        "@vpilipenko/icons": "^0.0.18"
     }
 }

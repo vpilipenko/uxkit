@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/layout",
     "description": "Layout component",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
