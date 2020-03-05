@@ -7,7 +7,6 @@ import cx from 'classnames'
 
 
 export class Button extends Component {
-
   static defaultProps = {
     size: 'm',
     theme: 'light',

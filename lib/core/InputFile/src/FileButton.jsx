@@ -2,10 +2,10 @@ import cm from './InputFile.module.styl'
 
 import React, { Component } from 'react'
 
-const Button = require('@vpilipenko/button').default
-require('@vpilipenko/button/dist/styles.css').default
+import Button from '@vpilipenko/button'
+import '@vpilipenko/button/dist/styles.css'
 
-const { Upload } = require('@vpilipenko/icons').default
+import { Upload } from '@vpilipenko/icons'
 
 
 class FileButton extends Component {

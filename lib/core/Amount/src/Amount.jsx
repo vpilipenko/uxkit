@@ -5,9 +5,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-const numeral = require('numeral').default
-require('numeral/locales/ru').default
-require('numeral/locales/de').default
+import numeral from 'numeral'
+import 'numeral/locales/ru'
+import 'numeral/locales/de'
 
 const CURRENCIES = {
   rur: '₽',

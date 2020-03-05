@@ -7,7 +7,6 @@ import cx from 'classnames'
 
 
 class IconButton extends Component {
-
   static propTypes = {
     type: PropTypes.string,
     size: PropTypes.oneOf(['s', 'm', 'l']),
