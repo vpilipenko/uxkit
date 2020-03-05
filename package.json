@@ -4,8 +4,8 @@
   "description": "some UX components",
   "main": "index.js",
   "scripts": {
-    "install:components": "lerna exec npm install",
-    "build:components": "lerna exec npm run \"build\"",
+    "install:components": "lerna exec npm install --concurrency 1",
+    "build:components": "lerna exec npm run \"build\" --concurrency 1",
     "clean:components": "lerna exec npm run \"clean\"",
     "publish:components": "lerna publish",
     "analyze:components": "lerna bootstrap && lerna exec npm run \"analyze\"",

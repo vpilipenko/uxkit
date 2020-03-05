@@ -3,6 +3,7 @@ import cm from './ValueButton.module.styl'
 import React, { Component } from 'react'
 
 import cx from 'classnames'
+
 import { ArrowTop } from '@vpilipenko/icons'
 
 

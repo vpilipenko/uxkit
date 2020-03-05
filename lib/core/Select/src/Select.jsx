@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import { findClosest, getElIndex } from './utils'
 
 import ValueButton from './ValueButton'
-// import Popper from '@material-ui/core/Popper'
 import { Manager, Reference, Popper } from 'react-popper'
 import Menu from '@vpilipenko/menu'
 import '@vpilipenko/menu/dist/styles.css'
