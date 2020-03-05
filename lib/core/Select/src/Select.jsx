@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
 import PropTypes from 'prop-types'
@@ -6,9 +6,13 @@ import PropTypes from 'prop-types'
 import { findClosest, getElIndex } from './utils'
 
 import ValueButton from './ValueButton'
-import Popper from '@material-ui/core/Popper'
-import Menu from '../Menu'
-import MenuItem from '../MenuItem'
+// import Popper from '@material-ui/core/Popper'
+import { Manager, Reference, Popper } from 'react-popper'
+import Menu from '@vpilipenko/menu'
+import '@vpilipenko/menu/dist/styles.css'
+import MenuItem from '@vpilipenko/menu-item'
+import '@vpilipenko/menu-item/dist/styles.css'
+import Portal from './Portal'
 
 
 class Select extends Component {
@@ -64,7 +68,6 @@ class Select extends Component {
       value: value ? value : defaultValue ? defaultValue : isMultiple ? [] : '',
       options: this._getOptions(options),
       isOpen: isOpen ? isOpen : defaultIsOpen ? defaultIsOpen : false,
-      isValueButtonRefHandled: false,
       focusedIndex: undefined,
     }
   }
@@ -274,13 +277,16 @@ class Select extends Component {
   }
 
 
-  handleOptionsRef = node => {
-    this.optionsNode = ReactDOM.findDOMNode(node)
+  handleValueButtonRef = (node, popperReference) => {
+    const btnEl = ReactDOM.findDOMNode(node)
+    this.valueButtonNode = btnEl
+    popperReference(btnEl)
+    // this.setState({ isValueButtonRefHandled: true })
   }
 
-  handleValueButtonRef = node => {
-    this.valueButtonNode = ReactDOM.findDOMNode(node)
-    this.setState({ isValueButtonRefHandled: true })
+  handleOptionsRef = (node, popperRef) => {
+    this.optionsNode = node
+    popperRef(node)
   }
 
 
@@ -295,79 +301,108 @@ class Select extends Component {
   }
 
 
-  renderValueButton = _ => {
-    const { placeholder, disabled, isLoading, size, theme, style, className, fullWidth } = this.props
-    const { value, options, isOpen, focusedIndex } = this.state
+  renderValueButton = (popperReference) => {
+    const {
+      placeholder,
+      disabled,
+      isLoading,
+      size,
+      theme,
+      style,
+      className,
+      fullWidth
+    } = this.props
+
+    const {
+      value,
+      options,
+      isOpen,
+      focusedIndex
+    } = this.state
 
     return (
-      <ValueButton
-        ref={this.handleValueButtonRef}
-        value={value}
-        options={options}
-        isOpen={isOpen}
-        placeholder={
-          focusedIndex !== undefined
-            ? options.filter((o, i) => i === focusedIndex).pop().text
-            : placeholder
-        }
-        onClick={this.handleValueButtonClick}
-        disabled={disabled}
-        isLoading={isLoading}
-        size={size}
-        className={className}
-        style={style}
-        theme={theme}
-        fullWidth={fullWidth}
-        onKeyDown={this.handleKeyDown}
-      />
+      <Reference>
+        {({ ref }) => {
+          return (
+            <ValueButton
+              ref={node => this.handleValueButtonRef(node, ref)}
+              value={value}
+              options={options}
+              isOpen={isOpen}
+              placeholder={
+                focusedIndex !== undefined
+                  ? options.filter((o, i) => i === focusedIndex).pop().text
+                  : placeholder
+              }
+              onClick={this.handleValueButtonClick}
+              disabled={disabled}
+              isLoading={isLoading}
+              size={size}
+              className={className}
+              style={style}
+              theme={theme}
+              fullWidth={fullWidth}
+              onKeyDown={this.handleKeyDown}
+            />
+          )
+        }}
+      </Reference>
     )
   }
 
   renderOptions = _ => {
     const { optionsMaxHeight, size } = this.props
     const {
-      isValueButtonRefHandled,
       focusedIndex,
     } = this.state
-
-    if (!isValueButtonRefHandled) {
-      return null
-    }
 
     const { isOpen, value, options } = this.state
     const anchorEl = this.valueButtonNode
 
+    if (!isOpen) { return null }
+
     return (
-      <Popper open={isOpen} anchorEl={anchorEl} placement='bottom-start'>
-        <Menu
-          ref={this.handleOptionsRef}
-          onClick={this.handleOptionsClick}
-          size={size}
-          maxHeight={optionsMaxHeight}
+      <Portal>
+        <Popper
+          placement='bottom-start'
         >
-          {options.map((opt, i) => (
-            <MenuItem
-              key={i}
-              data-menuitem
-              active={opt.value === value || (Array.isArray(value) && value.includes(opt.value))}
-              focused={i === focusedIndex}
-              size={size}
+          {({ ref, style, placement, arrowProps }) => (
+            <div
+              ref={node => this.handleOptionsRef(node, ref)}
+              style={style} 
+              data-placement={placement}
+              onClick={this.handleOptionsClick}
             >
-              {opt.text}
-            </MenuItem>
-          ))}
-        </Menu>
-      </Popper>
+              <Menu
+                size={size}
+                maxHeight={optionsMaxHeight}
+              >
+                {options.map((opt, i) => (
+                  <MenuItem
+                    key={i}
+                    data-menuitem
+                    active={opt.value === value || (Array.isArray(value) && value.includes(opt.value))}
+                    focused={i === focusedIndex}
+                    size={size}
+                  >
+                    {opt.text}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </div>
+          )}
+        </Popper>
+      </Portal>
     )
   }
 
 
-  render() {
+  render() {    
     return (
-      <Fragment>
+      <Manager>
         {this.renderValueButton()}
         {this.renderOptions()}
-      </Fragment>
+      </Manager>
     )
   }
 }

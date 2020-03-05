@@ -3,7 +3,7 @@ import cm from './ValueButton.module.styl'
 import React, { Component } from 'react'
 
 import cx from 'classnames'
-import ArrowTop from '../icons/ArrowTop'
+import { ArrowTop } from '@vpilipenko/icons'
 
 
 class ValueButton extends Component {
