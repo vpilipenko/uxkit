@@ -166,9 +166,7 @@ export class Input extends Component {
       clear,
       type,
       // eslint-disable-next-line
-      rootRef,
-      // eslint-disable-next-line
-      ref,
+      clearValue, rootRef, ref,
       className,
       autoComplete,
       placeholder,
@@ -188,6 +186,7 @@ export class Input extends Component {
       onTouchEnd,
       onTouchMove,
       onTouchStart,
+      multiline,
       ...other
     } = this.props
 
@@ -196,7 +195,11 @@ export class Input extends Component {
       focused,
     } = this.state
 
-    const InputComponent = component ? component : 'input'
+    const InputComponent = component ?
+      component
+      : multiline
+        ? 'textarea'
+        : 'input'
 
     return (
       <div
@@ -224,7 +227,7 @@ export class Input extends Component {
           [cm.with_suffix]: suffix || clear,
         })}>
 
-          <If condition={prefix}>
+          <If condition={!multiline && prefix}>
             <span className={cm.prefix}>
               {prefix}
             </span>
@@ -256,7 +259,7 @@ export class Input extends Component {
             {...other}
           />
 
-          <If condition={suffix || clear}>
+          <If condition={!multiline && (suffix || clear)}>
             <span className={cm.suffix}>
               <If condition={clear}>
                 <div className={cm.clear_wrapper}>
