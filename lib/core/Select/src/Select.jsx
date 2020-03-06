@@ -42,6 +42,10 @@ class Select extends Component {
       PropTypes.string,
       PropTypes.number,
     ]),
+    optionsZIndex: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ])
   }
 
   static defaultProps = {
@@ -120,7 +124,7 @@ class Select extends Component {
 
 
   handleClick = e => {
-    e.preventDefault()
+    // e.preventDefault()
     const { isOpen, isMultiple, disabled } = this.props
 
     const clickedEl = e.target
@@ -353,7 +357,7 @@ class Select extends Component {
   }
 
   renderOptions = _ => {
-    const { optionsMaxHeight, size } = this.props
+    const { optionsMaxHeight, size, optionsZIndex } = this.props
     const {
       focusedIndex,
     } = this.state
@@ -371,7 +375,10 @@ class Select extends Component {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={node => this.handleOptionsRef(node, ref)}
-              style={style} 
+              style={{
+                ...style,
+                zIndex: optionsZIndex,
+              }} 
               data-placement={placement}
               onClick={this.handleOptionsClick}
             >
