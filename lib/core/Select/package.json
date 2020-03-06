@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/select",
     "description": "Select component",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -18,14 +18,14 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "peerDependencies": {
+        "classnames": "^2.2.6",
         "react": "^16.8.2",
-        "react-dom": "^16.8.2",
-        "classnames": "^2.2.6"
+        "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/icons": "^0.0.23",
+        "@vpilipenko/icons": "^0.0.24",
         "@vpilipenko/menu": "^0.0.4",
-        "@vpilipenko/menu-item": "^0.0.9",
+        "@vpilipenko/menu-item": "^0.0.10",
         "react-popper": "^1.3.7"
     }
 }
