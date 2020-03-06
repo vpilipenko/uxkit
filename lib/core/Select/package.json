@@ -19,7 +19,8 @@
     },
     "peerDependencies": {
         "react": "^16.8.2",
-        "react-dom": "^16.8.2"
+        "react-dom": "^16.8.2",
+        "classnames": "^2.2.6"
     },
     "dependencies": {
         "@vpilipenko/icons": "^0.0.23",

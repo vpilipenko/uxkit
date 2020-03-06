@@ -21,6 +21,7 @@ export default {
     'react-dom',
     'prop-types',
     'classnames',
+    'react-popper',
   ],
   plugins: [
     resolve({
@@ -32,11 +33,12 @@ export default {
       extensions: [".js", ".jsx"],
     }),
     commonjs({
-      include: [ 
-        /node_modules/, 
+      include: [
+        /node_modules/,
+        path.resolve(__dirname, './node_modules/'),
         path.resolve(__dirname, './lib/core/'),
       ],
-      preserveSymlinks: true,
+      sourceMap: false
     }),
     postcss({
       modules: true,
