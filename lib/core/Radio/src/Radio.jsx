@@ -19,6 +19,8 @@ const Radio = props => {
     size,
     disabled,
     onChange,
+    inputProps,
+    ...other
   } = props
 
   return (
@@ -29,6 +31,7 @@ const Radio = props => {
         [cm[`size-${size}`]]: !!size,
         [cm.disabled]: disabled,
       }, className)}
+      {...other}
     >
       <div className={cm.input_box}>
         <input
@@ -42,6 +45,7 @@ const Radio = props => {
           onClick={onChange}
           onChange={f => f}
           disabled={disabled}
+          {...inputProps}
         />
         <div className={cm.fake_input}></div>
       </div>
