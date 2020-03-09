@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/radio-group",
     "description": "RadioGroup component",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -21,6 +21,6 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/radio": "0.0.1"
+        "@vpilipenko/radio": "^0.0.2"
     }
 }
