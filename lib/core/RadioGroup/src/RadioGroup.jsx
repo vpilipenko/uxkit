@@ -19,6 +19,11 @@ class RadioGroup extends Component {
     valueKey: PropTypes.string,
   }
 
+  static defaultProps = {
+    size: 'm',
+    options: [],
+  }
+
 
   renderOptions = _ => {
     const {
@@ -51,10 +56,13 @@ class RadioGroup extends Component {
 
   render() {
     const {
+      // eslint-disable-next-line
+      value, options, valueKey, labelKey, name, disabled, onChange,
       className,
       size,
       inline,
       style,
+      ...other
     } = this.props
 
     return (
@@ -65,6 +73,7 @@ class RadioGroup extends Component {
           [cm.inline]: inline,
         }, className)}
         style={style}
+        {...other}
       >
         {this.renderOptions()}
       </div>

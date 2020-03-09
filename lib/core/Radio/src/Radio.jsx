@@ -57,10 +57,6 @@ Radio.propTypes = {
   checked: PropTypes.bool,
   /** The value of the component. */
   value: PropTypes.any,
-  /** Unchecked component icon */
-  icon: PropTypes.node,
-  /** Checked component icon */
-  checkedIcon: PropTypes.node,
   /** Input element id */
   id: PropTypes.string,
   /** Input element name */
@@ -77,6 +73,10 @@ Radio.propTypes = {
   size: PropTypes.oneOf(['s', 'm', 'l']),
   /** Theme of the component (['light']) */
   theme: PropTypes.oneOf(['light']),
+}
+
+Radio.defaultProps = {
+  size: 'm'
 }
 
 export default Radio
