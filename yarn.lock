@@ -2929,6 +2929,11 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@vpilipenko/radio@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@vpilipenko/radio/-/radio-0.0.1.tgz#28de4b7ea6c6f86fd299a04d5d0b7b352fa1f288"
+  integrity sha512-4flMNNckaMSS0SLa5KlqWwPXSWCQsVy6O7JnK7IVXnmlcORazS9GOKJnybqmBtMArP8WZAzdxDjT56vn53PySA==
+
 "@vpilipenko/text@^0.0.15":
   version "0.0.15"
   resolved "https://registry.yarnpkg.com/@vpilipenko/text/-/text-0.0.15.tgz#6a933dcbb9eb75293ab43a5af2aa24b0e5f1c6d7"
