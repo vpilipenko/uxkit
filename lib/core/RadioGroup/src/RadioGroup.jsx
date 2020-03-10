@@ -55,7 +55,6 @@ class RadioGroup extends Component {
     ))
   }
 
-
   render() {
     const {
       // eslint-disable-next-line
