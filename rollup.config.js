@@ -41,7 +41,6 @@ export default {
       sourceMap: false
     }),
     postcss({
-      modules: true,
       extract: './dist/styles.css',
       extensions: ['.css', '.styl'],
       minimize: true,
