@@ -35,6 +35,7 @@ class RadioGroup extends Component {
       size,
       disabled,
       onChange,
+      inputProps
     } = this.props
 
     return options.map((option, index) => (
@@ -48,6 +49,7 @@ class RadioGroup extends Component {
         onChange={onChange}
         className={cm.radio}
         disabled={disabled}
+        inputProps={inputProps}
         key={index}
       />
     ))
@@ -57,7 +59,7 @@ class RadioGroup extends Component {
   render() {
     const {
       // eslint-disable-next-line
-      value, options, valueKey, labelKey, name, disabled, onChange,
+      value, options, valueKey, labelKey, name, disabled, onChange, inputProps,
       className,
       size,
       inline,
