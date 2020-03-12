@@ -28,7 +28,6 @@ class InputDate extends Component {
   }
 
   handleYearMonthChange = month => {
-    console.log('month', month)
     this.setState({ month })
   }
 
@@ -48,10 +47,11 @@ class InputDate extends Component {
           month: this.state.month,
           fromMonth: fromMonth,
           toMonth: toMonth,
-          captionElement: ({ date, localeUtils }) => (
+          captionElement: ({ date }) => (
             <YearMonthForm
               date={date}
-              localeUtils={localeUtils}
+              localeUtils={MomentLocaleUtils}
+              locale='ru'
               onChange={this.handleYearMonthChange}
             />
           )
@@ -63,43 +63,55 @@ class InputDate extends Component {
   }
 }
 
-function YearMonthForm({ date, localeUtils, onChange }) {
-  const months = localeUtils.getMonths();
+function YearMonthForm({ date, onChange }) {
+  const months = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+  ]
 
-  const years = [];
+  const years = []
   for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
-    years.push(i);
+    years.push(i)
   }
 
   const handleChange = function handleChange(e) {
-    const { year, month } = e.target.form;
-    onChange(new Date(year.value, month.value));
-  };
+    const { name, value } = e.target
+    if (name === 'month') {
+      onChange(new Date(date.getFullYear(), value));
+    } else {
+      onChange(new Date(value, date.getMonth()))
+    }
+  }
 
   return (
     <form className="DayPicker-Caption">
       <Select
         name='month'
-        // value={date.getMonth()}
-        // options={months.map((month, i) => ({value: i, text: month}))}
-        // onChange={handleChange}
+        value={`${date.getMonth()}`}
+        options={months.map((month, i) => ({value: `${i}`, text: month}))}
+        onChange={handleChange}
         size='s'
         optionsZIndex={2}
       />
-      {/* <select name="month" onChange={handleChange} value={date.getMonth()}>
-        {months.map((month, i) => (
-          <option key={month} value={i}>
-            {month}
-          </option>
-        ))} */}
-      {/* </select> */}
-      <select name="year" onChange={handleChange} value={date.getFullYear()}>
-        {years.map(year => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
+      <Select
+        name='year'
+        value={`${date.getFullYear()}`}
+        options={years.map((year, i) => ({value: `${year}`, text: year}))}
+        onChange={handleChange}
+        size='s'
+        style={{maxWidth: '4rem'}}
+        optionsZIndex={2}
+      />
     </form>
   );
 }

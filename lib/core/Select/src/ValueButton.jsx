@@ -19,6 +19,7 @@ class ValueButton extends Component {
       size,
       theme,
       className,
+      style,
       // isLoading,
       fullWidth,
       onFocus,
@@ -56,6 +57,7 @@ class ValueButton extends Component {
           [cm[`theme-${theme}`]]: !!theme,
           [cm.fullWidth]: fullWidth,
         }, className)}
+        style={style}
         onFocus={onFocus}
         onBlur={onBlur}
         onKeyDown={onKeyDown}
