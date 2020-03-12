@@ -44,6 +44,7 @@ class ValueButton extends Component {
 
     return (
       <button
+        type='button'
         disabled={disabled}
         onClick={onClick}
         className={cx({

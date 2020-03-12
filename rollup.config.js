@@ -8,6 +8,18 @@ import commonjs from "@rollup/plugin-commonjs"
 import postcss from 'rollup-plugin-postcss'
 import minify from 'rollup-plugin-babel-minify'
 
+const externals = [
+  /\@vpilipenko/,
+  /react/,
+  /react\-dom/,
+  /prop\-types/,
+  /classnames/,
+  /react\-popper/,
+  /react\-day\-picker/,
+  /moment/,
+  /react\-input\-mask/,
+]
+
 
 export default {
   input: 'src/index.js',
@@ -16,13 +28,11 @@ export default {
     format: 'cjs',
     exports: 'named',
   },
-  external: [
-    'react',
-    'react-dom',
-    'prop-types',
-    'classnames',
-    'react-popper',
-  ],
+  external: id => {
+    return externals.some(ext => {
+      return ext.test(id)
+    })
+  },
   plugins: [
     resolve({
       extensions: ['.jsx', '.js', '.json'],
@@ -45,6 +55,6 @@ export default {
       extensions: ['.css', '.styl'],
       minimize: true,
     }),
-    minify(),
+    // minify(),
   ],
 };
