@@ -55,6 +55,6 @@ export default {
       extensions: ['.css', '.styl'],
       minimize: true,
     }),
-    // minify(),
+    minify(),
   ],
 };
