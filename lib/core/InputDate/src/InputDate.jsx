@@ -17,7 +17,7 @@ import Select from '@vpilipenko/select'
 import '@vpilipenko/select/dist/styles.css'
 import IconButton from '@vpilipenko/icon-button'
 import '@vpilipenko/icon-button/dist/styles.css'
-import { ArrowLeft, ArrowRight } from '../../Icons/src'
+import { ArrowLeft, ArrowRight } from '@vpilipenko/icons'
 
 
 
@@ -51,11 +51,11 @@ class InputDate extends Component {
 
   render() {
     const {
-      dayPickerInputProps,
       dayPickerProps,
       yearMonthSelect,
       fromMonth,
       toMonth,
+      ...other
     } = this.props
 
     let captionElement
@@ -96,7 +96,7 @@ class InputDate extends Component {
           ...dayPickerProps
         }}
         component={InputMasked}
-        {...dayPickerInputProps}
+        {...other}
       />
     )
   }

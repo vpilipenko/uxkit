@@ -1,16 +1,21 @@
-# Icons 🤑🤑🤑
+# Icons 🦠🦠🦠
 
 Icon components
 
 ```js
-  import Icon from '@vpilipenko/icon'
   import { Cross } from '@vpilipenko/icons'
 ```
 <!-- STORY -->
 
+<br/>
+
 ### Usage example
 ```js
-<Icon><Cross /></Icon>
+  <Cross
+    fill='#D50000'
+    width='24'
+    height='24'
+  />
 ```
 <br/>
 <!-- PROPS -->

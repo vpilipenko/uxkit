@@ -1,4 +1,4 @@
-# InputDate 📁📁📁
+# InputDate 📅📅📅
 
 InputDate component
 
@@ -6,6 +6,8 @@ InputDate component
   import InputDate from '@vpilipenko/input-date'
 ```
 <!-- STORY -->
+
+<br/>
 
 ### Usage example
 ```js
