@@ -21,6 +21,8 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
+        "@vpilipenko/icon-button": "0.0.26",
+        "@vpilipenko/icons": "0.0.24",
         "@vpilipenko/input-masked": "0.0.1",
         "@vpilipenko/select": "^0.0.14",
         "moment": "^2.24.0",

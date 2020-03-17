@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import PropTypes from 'prop-types'
+
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import 'moment/locale/ru'
 import MomentLocaleUtils, {
@@ -13,17 +15,33 @@ import InputMasked from '@vpilipenko/input-masked'
 import '@vpilipenko/input-masked/dist/styles.css'
 import Select from '@vpilipenko/select'
 import '@vpilipenko/select/dist/styles.css'
+import IconButton from '@vpilipenko/icon-button'
+import '@vpilipenko/icon-button/dist/styles.css'
+import { ArrowLeft, ArrowRight } from '../../Icons/src'
 
 
-const currentYear = new Date().getFullYear();
-const fromMonth = new Date(currentYear, 0);
-const toMonth = new Date(currentYear + 10, 11);
+
 
 class InputDate extends Component {
+
+  static propTypes = {
+    fromMonth: PropTypes.object,
+    toMonth: PropTypes.object,
+    dayPickerProps: PropTypes.object,
+  }
+
+  static defaultProps = {
+
+  }
+
+
   constructor(props) {
     super(props)
+    const { fromMonth, dayPickerProps } = props
+    const month = dayPickerProps && dayPickerProps.month
+
     this.state = {
-      month: fromMonth,
+      month: month ? month : fromMonth,
     }
   }
 
@@ -32,6 +50,32 @@ class InputDate extends Component {
   }
 
   render() {
+    const {
+      dayPickerInputProps,
+      dayPickerProps,
+      yearMonthSelect,
+      fromMonth,
+      toMonth,
+    } = this.props
+
+    let captionElement
+    if (yearMonthSelect) {
+      if (!fromMonth || !toMonth) {
+        console.error('To use yearMonthSelect you should provide fromMonth and toMonth props as js Date')
+      } else {
+        captionElement = ({ date, localeUtils }) => (
+          <YearMonthSelect
+            date={date}
+            localeUtils={localeUtils}
+            locale='ru'
+            fromMonth={fromMonth}
+            toMonth={toMonth}
+            onChange={this.handleYearMonthChange}
+          />
+        )
+      }
+    }
+
     return (
       <DayPickerInput
         formatDate={formatDate}
@@ -47,42 +91,24 @@ class InputDate extends Component {
           month: this.state.month,
           fromMonth: fromMonth,
           toMonth: toMonth,
-          captionElement: ({ date }) => (
-            <YearMonthForm
-              date={date}
-              localeUtils={MomentLocaleUtils}
-              locale='ru'
-              onChange={this.handleYearMonthChange}
-            />
-          )
+          captionElement,
+          navbarElement: <Navbar />,
+          ...dayPickerProps
         }}
         component={InputMasked}
-        {...this.props}
+        {...dayPickerInputProps}
       />
     )
   }
 }
 
-function YearMonthForm({ date, onChange }) {
-  const months = [
-    'Январь',
-    'Февраль',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Август',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь',
-  ]
+const YearMonthSelect = props => {
+  const { date, localeUtils, locale, fromMonth, toMonth, onChange } = props
+  const months = localeUtils.getMonths(locale)
 
-  const years = []
-  for (let i = fromMonth.getFullYear(); i <= toMonth.getFullYear(); i += 1) {
-    years.push(i)
-  }
+  const years = new Array(toMonth.getFullYear() - fromMonth.getFullYear() + 1)
+  .fill('')
+  .map((x, index) => fromMonth.getFullYear() + index)
 
   const handleChange = function handleChange(e) {
     const { name, value } = e.target
@@ -94,13 +120,16 @@ function YearMonthForm({ date, onChange }) {
   }
 
   return (
-    <form className="DayPicker-Caption">
+    <form
+      className="DayPicker-Caption"
+    >
       <Select
         name='month'
         value={`${date.getMonth()}`}
-        options={months.map((month, i) => ({value: `${i}`, text: month}))}
+        options={months.map((m, i) => ({value: `${i}`, text: m[0].toUpperCase() + m.slice(1)}))}
         onChange={handleChange}
         size='s'
+        style={{minWidth: 'auto', width: '6.875rem', marginRight: '.25rem'}}
         optionsZIndex={2}
       />
       <Select
@@ -109,11 +138,48 @@ function YearMonthForm({ date, onChange }) {
         options={years.map((year, i) => ({value: `${year}`, text: year}))}
         onChange={handleChange}
         size='s'
-        style={{maxWidth: '4rem'}}
+        style={{minWidth: 'auto', width: '4.875rem'}}
         optionsZIndex={2}
       />
     </form>
-  );
+  )
+}
+
+const Navbar = props => {
+  const {
+    onPreviousClick,
+    onNextClick,
+    className,
+  } = props
+
+  return (
+    <div
+      className={className}
+    >
+      <IconButton
+        size='s'
+        style={{
+          position: 'absolute',
+          top: '1.0625rem',
+          right: '2.625rem'
+        }}
+        onClick={_ => onPreviousClick()}
+      >
+        <ArrowLeft fill='#bab9ba' />
+      </IconButton>
+      <IconButton
+        size='s'
+        style={{
+          position: 'absolute',
+          top: '1.0625rem',
+          right: '.5rem'
+        }}
+        onClick={_ => onNextClick()}
+      >
+        <ArrowRight fill='#bab9ba' />
+      </IconButton>
+    </div>
+  )
 }
 
 export default InputDate
