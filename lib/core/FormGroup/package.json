@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/form-group",
     "description": "FormGroup component",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -22,6 +22,6 @@
         "react-dom": "^16.8.2"
     },
     "devDependencies": {
-        "@vpilipenko/input": "^0.0.28"
+        "@vpilipenko/input": "^0.0.29"
     }
 }

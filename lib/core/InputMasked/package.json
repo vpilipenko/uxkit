@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input-masked",
     "description": "InputMasked component",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -21,7 +21,7 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/input": "0.0.28",
+        "@vpilipenko/input": "^0.0.29",
         "react-input-mask": "^2.0.4"
     }
 }
