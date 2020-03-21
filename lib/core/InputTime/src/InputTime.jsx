@@ -50,6 +50,7 @@ class InputTime extends Component {
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     popupPlacement: PropTypes.string,
+    inputProps: PropTypes.object,
   }
 
   static defaultProps = {
@@ -70,6 +71,7 @@ class InputTime extends Component {
     popupMaxHeight: '320px',
     popupZIndex: 1,
     popupPlacement: 'bottom-start',
+    inputProps: {},
   }
 
 
@@ -334,6 +336,7 @@ class InputTime extends Component {
       size,
       placeholder,
       disabled,
+      inputProps
     } = this.props
 
     const {
@@ -354,6 +357,7 @@ class InputTime extends Component {
               ref={node => this.handleInputRef(node, ref)}
               onChange={this.handleInputChange}
               disabled={disabled}
+              {...inputProps}
             />
           )}}
       </Reference>
