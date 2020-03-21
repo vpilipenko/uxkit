@@ -7,9 +7,10 @@ import InputMask from 'react-input-mask'
 
 class InputMasked extends Component {
   render() {
+    const { disabled, ...other } = this.props
     return (
-      <InputMask {...this.props}>
-        {(inputProps) => <Input {...inputProps} />}
+      <InputMask disabled={disabled} {...other}>
+        {(inputProps) => <Input {...inputProps} disabled={disabled} />}
       </InputMask>
     )
   }
