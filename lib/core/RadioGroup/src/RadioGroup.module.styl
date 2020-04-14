@@ -1,0 +1,25 @@
+.radio_group {
+  display flex
+  flex-direction: column
+}
+
+.radio:last-child {
+  margin-right: 0
+}
+
+
+.inline {
+  flex-direction row
+  flex-wrap: wrap
+  &.size-s .radio {
+    margin-right .25rem
+  }
+
+  &.size-m .radio {
+    margin-right .375rem
+  }
+
+  &.size-l .radio {
+    margin-right .5rem
+  }
+}

@@ -18,13 +18,13 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "peerDependencies": {
-        "react": "^16.8.2",
-        "react-dom": "^16.8.2"
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1"
     },
     "dependencies": {
-        "@vpilipenko/icons": "^0.0.21",
+        "@vpilipenko/icons": "^0.0.26",
         "@vpilipenko/menu": "^0.0.4",
-        "@vpilipenko/menu-item": "^0.0.6",
-        "react-popper": "^1.3.7"
+        "@vpilipenko/menu-item": "^0.0.14",
+        "react-popper": "^2.2.2"
     }
 }

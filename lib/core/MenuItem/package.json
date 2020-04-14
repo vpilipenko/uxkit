@@ -18,10 +18,10 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "peerDependencies": {
-        "react": "^16.8.2",
-        "react-dom": "^16.8.2"
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1"
     },
     "dependencies": {
-        "@vpilipenko/icons": "^0.0.21"
+        "@vpilipenko/icons": "^0.0.26"
     }
 }
