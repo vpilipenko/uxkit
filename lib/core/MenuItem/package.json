@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/menu-item",
     "description": "MenuItem component",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -22,7 +22,7 @@
         "react-dom": "^16.13.1"
     },
     "dependencies": {
-        "@vpilipenko/icons": "^0.1.1"
+        "@vpilipenko/icons": "^0.2.0"
     },
     "gitHead": "c5b9b14107ba6aca7d4c875f109c42381a0a7dfb"
 }
