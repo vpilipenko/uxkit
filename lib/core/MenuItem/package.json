@@ -22,6 +22,6 @@
         "react-dom": "^16.13.1"
     },
     "dependencies": {
-        "@vpilipenko/icons": "^0.1.0"
+        "@vpilipenko/icons": "^0.1.1"
     }
 }

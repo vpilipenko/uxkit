@@ -4,7 +4,7 @@ import React from 'react'
 
 import cx from 'classnames'
 
-const { Check } = require('@vpilipenko/icons')
+import { Check } from '@vpilipenko/icons'
 
 
 const MenuItem = ({
