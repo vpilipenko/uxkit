@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import Text from '@vpilipenko/text'
+const Text = require('@vpilipenko/text').default
 
 
 class FormGroup extends Component {
