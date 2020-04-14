@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-const { Check } = require('@vpilipenko/icons').default
+import { Check } from '@vpilipenko/icons'
 
 
 class Checkbox extends Component {
