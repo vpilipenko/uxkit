@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/radio-group",
     "description": "RadioGroup component",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
