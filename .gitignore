@@ -4,6 +4,6 @@ node_modules
 dist/
 lib/core/**/dist
 *.log
-.DS_Store
+*.DS_Store
 rm
 /.vscode
