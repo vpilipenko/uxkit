@@ -43,6 +43,7 @@ class InputDate extends Component {
     }
   }
 
+
   handleYearMonthChange = month => {
     this.setState({ month })
   }
