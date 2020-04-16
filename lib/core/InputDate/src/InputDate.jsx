@@ -8,16 +8,18 @@ import MomentLocaleUtils, {
   formatDate,
   parseDate,
 } from 'react-day-picker/lib/src/addons/MomentLocaleUtils'
-
 import './style.css'
 
-const InputMasked = require('@vpilipenko/input-masked')
-require('@vpilipenko/input-masked/dist/styles.css')
-const Select = require('@vpilipenko/select')
-require('@vpilipenko/select/dist/styles.css')
-const IconButton = require('@vpilipenko/icon-button')
-require('@vpilipenko/icon-button/dist/styles.css')
-const { ArrowLeft, ArrowRight } = require('@vpilipenko/icons')
+import InputMasked from '@vpilipenko/input-masked'
+import '@vpilipenko/input-masked/dist/styles.css'
+
+import Select from '@vpilipenko/select'
+import '@vpilipenko/select/dist/styles.css'
+
+import IconButton from '@vpilipenko/icon-button'
+import '@vpilipenko/icon-button/dist/styles.css'
+
+import { ArrowLeft, ArrowRight } from '@vpilipenko/icons'
 
 
 class InputDate extends Component {
