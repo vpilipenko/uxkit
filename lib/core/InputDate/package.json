@@ -27,5 +27,6 @@
         "@vpilipenko/select": "^0.0.17",
         "moment": "^2.24.0",
         "react-day-picker": "^7.4.0"
-    }
+    },
+    "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }

@@ -16,5 +16,6 @@
         "clean": "rimraf dist && rimraf node_modules && rimraf package-lock.json",
         "analyze": "webpack-bundle-analyzer stats.json dist/ -h 192.168.102.15",
         "test": "echo \"Error: no test specified\" && exit 1"
-    }
+    },
+    "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }
