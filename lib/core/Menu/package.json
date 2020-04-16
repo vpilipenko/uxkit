@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/menu",
     "description": "Menu component",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
