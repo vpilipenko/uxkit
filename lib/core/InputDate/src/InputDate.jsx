@@ -156,6 +156,7 @@ const Navbar = props => {
       className={className}
     >
       <IconButton
+        type='button'
         size='s'
         style={{
           position: 'absolute',
@@ -167,6 +168,7 @@ const Navbar = props => {
         <ArrowLeft fill='#bab9ba' />
       </IconButton>
       <IconButton
+        type='button'
         size='s'
         style={{
           position: 'absolute',

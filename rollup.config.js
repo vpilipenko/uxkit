@@ -23,6 +23,8 @@ export default {
     'react-dom',
     'prop-types',
     'classnames',
+    'moment',
+    'numeral',
     'react-day-picker',
   ],
   plugins: [
@@ -39,7 +41,8 @@ export default {
     }),
     babel({
       configFile: path.resolve(__dirname, 'babel.config.js'),
-      exclude: [/node_modules/, path.resolve(__dirname, './lib/core/Select/node_modules')],
+      // exclude: [/node_modules/, path.resolve(__dirname, './lib/core/Select/node_modules')],
+      exclude: [/node_modules/],
       extensions: [".js", ".jsx"],
     }),
     commonjs({
