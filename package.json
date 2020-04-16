@@ -54,6 +54,7 @@
     "rollup-plugin-babel-minify": "^10.0.0",
     "rollup-plugin-css-only": "^2.0.0",
     "rollup-plugin-css-porter": "^1.0.2",
+    "rollup-plugin-node-externals": "^2.1.5",
     "rollup-plugin-postcss": "^2.6.2",
     "sass-loader": "8.0.2",
     "storybook-readme": "^5.0.8",

@@ -7,6 +7,7 @@ import resolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs"
 import postcss from 'rollup-plugin-postcss'
 // import minify from 'rollup-plugin-babel-minify'
+import externals from 'rollup-plugin-node-externals'
 
 
 export default {
@@ -22,8 +23,17 @@ export default {
     'react-dom',
     'prop-types',
     'classnames',
+    'react-day-picker',
   ],
   plugins: [
+    externals({
+      // Make node built-ins external. Optional. Default: true
+      builtins: true,
+      // Make pkg.dependencies external. Optional. Default: false
+      deps: true,
+      // Make pkg.peerDependencies external. Optional. Default: true
+      peerDeps: true,
+    }),
     resolve({
       extensions: ['.jsx', '.js', '.json'],
     }),
