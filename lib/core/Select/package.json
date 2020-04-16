@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/select",
     "description": "Select component",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -24,7 +24,7 @@
     "dependencies": {
         "@popperjs/core": "^2.3.2",
         "@vpilipenko/icons": "^0.1.3",
-        "@vpilipenko/menu": "^0.0.6",
+        "@vpilipenko/menu": "^0.0.7",
         "@vpilipenko/menu-item": "^0.1.3",
         "popper.js": "^1.16.1",
         "react-popper": "^2.2.2"

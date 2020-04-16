@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/icons",
     "description": "Icon components",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -26,7 +26,7 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/icon": "^0.0.11"
+        "@vpilipenko/icon": "^0.0.12"
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }
