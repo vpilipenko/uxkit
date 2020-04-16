@@ -29,9 +29,7 @@ class InputDate extends Component {
   }
 
   static defaultProps = {
-
   }
-
 
   constructor(props) {
     super(props)
