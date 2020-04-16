@@ -13,8 +13,9 @@ export default {
   input: 'src/index.js',
   output: {
     file: `./dist/${pkg.main}`,
-    format: 'cjs',
+    format: 'umd',
     exports: 'named',
+    name: pkg.main,
   },
   external: [
     'react',
