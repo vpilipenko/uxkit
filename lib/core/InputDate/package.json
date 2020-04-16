@@ -1,0 +1,31 @@
+{
+    "name": "@vpilipenko/input-date",
+    "description": "InputDate component",
+    "version": "0.0.6",
+    "license": "MIT",
+    "author": "Vasiliy Pilipenko",
+    "main": "dist/index.js",
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "dist/*"
+    ],
+    "scripts": {
+        "build": "NODE_ENV=production rollup --config ../../../rollup.config.js",
+        "clean": "rimraf dist && rimraf node_modules && rimraf package-lock.json",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "peerDependencies": {
+        "react": "^16.8.2",
+        "react-dom": "^16.8.2"
+    },
+    "dependencies": {
+        "@vpilipenko/icon-button": "^0.0.29",
+        "@vpilipenko/icons": "^0.0.26",
+        "@vpilipenko/input-masked": "^0.0.5",
+        "@vpilipenko/select": "^0.0.17",
+        "moment": "^2.24.0",
+        "react-day-picker": "^7.4.0"
+    }
+}
