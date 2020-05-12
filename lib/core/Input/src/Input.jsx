@@ -119,9 +119,9 @@ export class Input extends Component {
   }
 
   handleInputRef = node => {
-    const { ref } = this.props
+    const { inputRef } = this.props
     this.inputRef = node
-    ref && ref(node)
+    inputRef && inputRef(node)
   }
 
 
@@ -165,10 +165,7 @@ export class Input extends Component {
       suffix,
       clear,
       type,
-      // eslint-disable-next-line
-      rootRef,
-      // eslint-disable-next-line
-      ref,
+      rootRef, inputRef, // eslint-disable-line
       className,
       autoComplete,
       placeholder,
