@@ -185,6 +185,7 @@ export class Input extends Component {
       onTouchEnd,
       onTouchMove,
       onTouchStart,
+      onClear, // eslint-disable-line
       ...other
     } = this.props
 
