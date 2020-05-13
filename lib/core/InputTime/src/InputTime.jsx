@@ -205,11 +205,6 @@ class InputTime extends Component {
     const inputEl = this.inputNode
     const popupEl = this.popupNode
 
-    console.log('click')
-    // console.log('clickedEl', clickedEl)
-    // console.log('inputEl', inputEl)
-    // console.log('popupEl', popupEl)
-
     if (!isOpen && !disabled) {
       // Input clicked
       if (inputEl.contains(clickedEl)) {
