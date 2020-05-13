@@ -21,7 +21,7 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/input": "^0.0.31",
+        "@vpilipenko/input": "^0.2.6",
         "react-input-mask": "^2.0.4"
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
