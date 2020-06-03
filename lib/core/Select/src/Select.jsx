@@ -126,7 +126,6 @@ class Select extends Component {
 
 
   handleClick = e => {
-    e.preventDefault()
     const { isOpen, isMultiple, disabled } = this.props
 
     const clickedEl = e.target
