@@ -28,7 +28,7 @@ class ValueButton extends Component {
 
     let text = placeholder
 
-    if (value && typeof value === 'string') {
+    if (value && (typeof value === 'string' || typeof value === 'number')) {
       text = options
         .filter(o => o.value === value)
         .map(o => o.text)
