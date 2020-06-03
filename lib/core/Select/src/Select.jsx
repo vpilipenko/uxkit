@@ -23,6 +23,7 @@ class Select extends Component {
   static propTypes = {
     value: PropTypes.oneOfType([
       PropTypes.string,
+      PropTypes.number,
       PropTypes.array,
     ]),
     options: PropTypes.array,
