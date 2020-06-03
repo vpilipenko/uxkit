@@ -43,6 +43,10 @@ class Select extends Component {
       PropTypes.string,
       PropTypes.number,
     ]),
+    optionsZIndex: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
   }
 
   static defaultProps = {
@@ -354,13 +358,12 @@ class Select extends Component {
   }
 
   renderOptions = _ => {
-    const { optionsMaxHeight, size } = this.props
+    const { optionsMaxHeight, optionsZIndex, size } = this.props
     const {
       focusedIndex,
     } = this.state
 
     const { isOpen, value, options } = this.state
-    const anchorEl = this.valueButtonNode
 
     if (!isOpen) { return null }
 
@@ -372,7 +375,7 @@ class Select extends Component {
           {({ ref, style, placement, arrowProps }) => (
             <div
               ref={node => this.handleOptionsRef(node, ref)}
-              style={style} 
+              style={{ zIndex: optionsZIndex, ...style }} 
               data-placement={placement}
               onClick={this.handleOptionsClick}
             >
@@ -381,7 +384,6 @@ class Select extends Component {
                 maxHeight={optionsMaxHeight}
               >
                 {options.map((opt, i) => (
-                  // <div>123</div>
                   <MenuItem
                     key={i}
                     data-menuitem
