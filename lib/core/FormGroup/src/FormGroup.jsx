@@ -31,8 +31,6 @@ class FormGroup extends Component {
   }
 
   renderChildren = children => {
-    const { size, theme } = this.props
-
     if (typeof(children) === 'string') {
       return children
     }
@@ -40,10 +38,7 @@ class FormGroup extends Component {
     return React.Children.map(children, (child) => {
       if (child) {
         return (
-          React.cloneElement(child, {
-            size: child.props.size || size,
-            theme: child.props.theme || theme,
-          })
+          React.cloneElement(child)
         )
       }
     })
