@@ -1,4 +1,4 @@
-import React, { Component, useState, useCallback, useEffect } from 'react'
+import React, { Component, useRef, useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import EventListener from 'react-event-listener'
 import isHotkey from 'is-hotkey'
@@ -20,6 +20,8 @@ const isRight = isHotkey('right')
 const isEsc = isHotkey('esc')
 const isEnter = isHotkey('enter')
 
+let blurTimer = -1
+
 const Autocomplete = ({
   query = '',
   options = [],
@@ -29,7 +31,6 @@ const Autocomplete = ({
   onQuery = q => q,
   isLoading = false,
   autoSelectFirstItem = false,
-  chips = false,
   filter = o => true,
   sort = (a, b) => a > b ? 1 : -1,
   value = null,
@@ -41,7 +42,7 @@ const Autocomplete = ({
   classNames = {},
   optionComponent = 'div',
   renderOption = null,
-  groupBy = null,
+  groupBy = l => l,
   onClear = () => { },
   onOpen = () => { },
   onClose = () => { },
@@ -58,21 +59,67 @@ const Autocomplete = ({
   onBlur = e => { },
   defaultOpen = false,
   defaultValue = null,
+  name = '',
+  isMultiple = false,
   ...other
 }) => {
+
+  const containerRef = useRef(null)
+
   const [internalOptions, setInternalOptions] = useState(options || [])
-  const [internalValue, setInternalValue] = useState(value || defaultValue)
-  const [internalInputValue, setInternalInputValue] = useState(query)
+
+  const [internalValue, setInternalValue] = useState(
+    isMultiple 
+      ? (value ? value : [])
+      : (
+        (typeof value === 'string' || typeof value === 'number')
+          ? internalOptions.find(o => getValue(o) === value)
+          : value || defaultValue
+      )
+  )
+
+  const [internalInputValue, setInternalInputValue] = useState(
+    isMultiple 
+      ? ('')
+      : (
+        (typeof value === 'string' || typeof value === 'number')
+          ? (internalOptions.find(o => getValue(o) === value) || {})[labelKey] || ''
+          : (value || '')
+      )
+  )
+
   const [internalInputPlaceholder, setInternalInputPlaceholder] = useState('')
   const [internalFocusIndex, setInternalFocusIndex] = useState(focusIndex)
-
-
   const [isInputFocused, setInputFocused] = useState(false)
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
-  const handleSelectOption = useCallback(option => {
-    onChange(option)
-  }, [])
+
+  const inputValueUpdate = useCallback((value) => {
+    if (typeof value === 'string') {
+      setInternalInputValue(value)
+      return
+    }
+    if (isMultiple) {
+      setInternalInputValue('')
+    } else {
+      setInternalInputValue(getLabel(internalValue) || "")
+    }
+  }, [isMultiple, internalValue])
+
+  const handleSelectOption = useCallback(() => {
+    setInternalValue(prev => {
+      const opt = internalOptions[internalFocusIndex]
+      const optValue = getValue(opt)
+      if (isMultiple) {
+        const isSet = prev.find(o => getValue(o) === optValue)
+        if (isSet) {
+          return prev.filter(o => getValue(o) !== optValue)
+        }
+        return [...prev, opt]
+      }
+      return opt
+    })
+  }, [isMultiple, internalOptions, internalFocusIndex])
 
   const handleInputChange = useCallback(e => {
     const { value } = e.target
@@ -87,9 +134,9 @@ const Autocomplete = ({
 
   const handleBlur = useCallback(e => {
     setInputFocused(false)
-    setIsOpen(false)
+    // setIsOpen(false)
     onBlur(e)
-  }, [])
+  }, [internalValue])
 
   const handleKeyDown = useCallback(e => {
     if (isInputFocused) {
@@ -109,20 +156,62 @@ const Autocomplete = ({
         case isEsc(e):
           return setIsOpen(false)
         case isEnter(e):
-          return //
+          handleSelectOption()
+          return
       }
     }
-  }, [isOpen, isInputFocused])
+  }, [isOpen, isInputFocused, internalOptions, internalFocusIndex])
+
+  const handleClick = useCallback(e => {
+    let { target } = e
+    while (target && target !== containerRef.current) {
+      const { dataset } = target
+      if (dataset && dataset.index !== undefined) {
+        e.preventDefault()
+        e.stopPropagation()
+        const { index } = dataset
+        handleSelectOption()
+        return
+      }
+      target = target.parentNode
+    }
+
+    if (target && target === containerRef.current) {
+      // 
+    } else {
+      setIsOpen(false)
+    }
+
+  }, [internalOptions, internalFocusIndex])
 
   useEffect(() => {
-    isOpen && onOpen()
-    !isOpen && onClose()
+    !isOpen && internalValue && inputValueUpdate()
   }, [isOpen])
 
   useEffect(() => {
-    setInternalValue(value)
-  }, [value])
+    if (!isOpen) {
+      onClose()
+    } else {
+      onOpen()
+    }
+  }, [isOpen])
 
+  useEffect(() => {
+    setInternalValue(
+      isMultiple ? (
+        []
+      ) : (
+        (value && (typeof value === 'string' || typeof value === 'number'))
+        ? internalOptions.find(o => getValue(o) === value)
+        : value
+      )
+    )
+    setInternalValue(value ? (
+      (typeof value === 'string' || typeof value === 'number')
+        ? internalOptions.find(o => getValue(o) === value)
+        : value
+    ) : isMultiple ? [] : null)
+  }, [value])
 
   useEffect(() => {
     setInternalInputValue(query)
@@ -134,24 +223,40 @@ const Autocomplete = ({
 
   useEffect(() => {
     setInternalOptions(
-      options
-      .filter((o, i) => filter(internalInputValue, o, i))
-      .sort(sort)
+      (options || [])
+        .filter((o, i) => filter(internalInputValue, o, i))
+        .sort(sort)
+      //  groupBy .....
     )
-  }, [options, sort, filter])
+  }, [options, internalInputValue])
 
-  const isEmpty = !options || !options.length
+  useEffect(() => {
+    onChange({
+      target: {
+        name,
+        value: internalValue,
+      }
+    })
+  }, [name, internalValue])
+
+  useEffect(() => {
+    if(!isMultiple) {
+      internalValue && inputValueUpdate() //setInternalInputValue(getLabel(internalValue))
+    }
+  }, [internalValue, isMultiple])
+
+
+  useEffect(() => {
+    if(!isMultiple) {
+      !internalInputValue && setInternalValue(null)
+    }
+  }, [internalInputValue, isMultiple])
+
+  const isEmpty = !internalOptions.length
 
   return (
-    <div>
-      <pre>
-        {JSON.stringify({ isEmpty, isInputFocused })}
-      </pre>
+    <div ref={containerRef} onClick={handleClick}>
       <div>
-        Wrapper <button onClick={e => setIsOpen(true)}>asd</button>
-      </div>
-      <div>
-
         <Input
           onFocus={handleFocus}
           onBlur={handleBlur}
@@ -173,16 +278,29 @@ const Autocomplete = ({
               {internalOptions
                 .map((option, index) => {
                   const isFocusedOption = internalFocusIndex === index
-                  const label = getLabel(option)
-                  const value = getValue(option)
+                  const optionLabel = getLabel(option)
+                  const optionValue = getValue(option)
+                  const isChecked = isMultiple ? (
+                    value && !!value.find(o => getValue(o) === optionValue)
+                  ) : (
+                    value && getValue(value) === optionValue
+                  )
                   return (
-                    <MenuItem
+                    <div
+                      data-value={optionValue}
+                      data-index={index}
                       key={index}
-                      size='m'
-                      focused={isFocusedOption}
                     >
-                      {label} / {value}
-                    </MenuItem>
+                      <MenuItem
+                        size='m'
+                        focused={isFocusedOption}
+                        active={isChecked}
+                        onMouseEnter={() => setInternalFocusIndex(index)}
+
+                      >
+                        {optionLabel} / {optionValue}
+                      </MenuItem>
+                    </div>
                   )
                 })}
             </Menu>
@@ -193,691 +311,12 @@ const Autocomplete = ({
       <If condition={isOpen || isInputFocused}>
         <EventListener target='window' onKeyDown={handleKeyDown} />
       </If>
+
+      <If condition={isOpen}>
+        <EventListener target='window' onClick={handleClick} />
+      </If>
     </div>
   )
 }
 
 export default Autocomplete
-
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete
-//     value: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     onFocusChange: PropTypes.func,
-//     onChange: PropTypes.func,
-//     isLoading: PropTypes.bool,
-//     autoSelectFirstItem: PropTypes.bool,
-//     chips: PropTypes.bool
-//   }
-
-//   static defaultProps = {
-//     query: '',
-//     options: [],
-//     focusIndex: -1,
-//     onFocusChange: e => {},
-//     onChange: p => {},
-//     isLoading: false,
-//     autoSelectFirstItem: false,
-//     chips: false,
-//     filter: o => o,
-//     sort: (a, b) => a > b ? 1 : -1,
-//     value: null,
-//     labelKey: 'label',
-//     valueKey: 'id',
-//     getLabel: o => o[labelKey],
-//     getValue: o => o[valueKey],
-//     // className,
-//     classNames: {},
-//     optionComponent: 'div',
-//     renderOption: null,
-//     groupBy: null,
-//     onClear: () => {},
-//     onDelete: (o, i) => {},
-//     focusChipBeforeDelete: false,
-//     ellipsis: true,
-//     renderChip: () => {},
-//     autoFocus: false,
-//     renderFooter: null,
-//     maxVisibleOptions: 100,
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div>
-//           wrapper
-//         </div>
-//         <div>
-//         </div>
-//         <div>
-//           menu
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-
-
-// export default Autocomplete

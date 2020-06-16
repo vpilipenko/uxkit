@@ -21,5 +21,8 @@
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
     },
-    "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
+    "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54",
+    "dependencies": {
+        "@vpilipenko/text": "0.0.18"
+    }
 }
