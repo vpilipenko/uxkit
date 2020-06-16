@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/autocomplete",
     "description": "Autocomplete component",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -25,7 +25,7 @@
     "dependencies": {
         "@vpilipenko/input": "^0.2.6",
         "@vpilipenko/menu": "0.0.7",
-        "@vpilipenko/menu-item": "^0.2.8",
+        "@vpilipenko/menu-item": "^0.2.9",
         "is-hotkey": "^0.1.6",
         "react-event-listener": "^0.6.6"
     }
