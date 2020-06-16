@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input-file",
     "description": "InputFile component",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -20,8 +20,6 @@
     "peerDependencies": {
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
-    },
-    "dependencies": {
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }
