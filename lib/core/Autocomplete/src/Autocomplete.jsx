@@ -55,7 +55,6 @@ const Autocomplete = ({
   renderChip = () => { },
   autoFocus = false,
   renderFooter = null,
-  maxVisibleOptions = 100,
   renderEmpty = () => 'empty',
   renderLoading = () => 'loading',
   onFocus = e => { },
@@ -65,10 +64,14 @@ const Autocomplete = ({
   name = '',
   isMultiple = false,
   usePortal = true,
+  portalTarget = document.body,
   disabled = false,
   size = 'm',
   groupBy = '',
   renderGroupSubheader = null,
+  maxVisibleOptions = 10,
+  fullWidth = false,
+  maxOptionsHeight = 300,
   ...other
 }) => {
   const [referenceElement, setReferenceElement] = useState(null);
@@ -89,7 +92,7 @@ const Autocomplete = ({
   )
 
   const [internalInputValue, setInternalInputValue] = useState(
-    isMultiple 
+    isMultiple
       ? ('')
       : (
         (typeof value === 'string' || typeof value === 'number')
@@ -252,7 +255,6 @@ const Autocomplete = ({
     }
   }, [internalValue, isMultiple])
 
-
   useEffect(() => {
     if(!isMultiple) {
       !internalInputValue && setInternalValue(null)
@@ -264,12 +266,9 @@ const Autocomplete = ({
     const optionValue = getValue(option)
     const optionLabel = getLabel(option)
     const isFocusedOption = internalFocusIndex === index
-    const isChecked = isMultiple ? (
-      value && !!value.find(o => getValue(o) === optionValue)
-    ) : (
-
-      value && getValue(value) === optionValue
-    )
+    const isChecked = isMultiple
+      ? (value && !!value.find(o => getValue(o) === optionValue))
+      : (value && getValue(value) === optionValue)
 
     
     if (typeof renderOption === 'function') {
@@ -299,7 +298,7 @@ const Autocomplete = ({
   const getOptions = () => {
     let curGroup
     return (
-      <Menu size={size}>
+      <Menu size={size} maxHeight={maxOptionsHeight}>
         {internalOptions
           .map((option, index) => {
             const optionValue = getValue(option)
@@ -354,21 +353,22 @@ const Autocomplete = ({
   })
 
   const UsePortal = usePortal ? Portal : 'div'
+  const portalProps = portalTarget ? {target: portalTarget} : {}
 
   return (
     <div ref={containerRef} onClick={handleClick}>
-      <div>
-        <Input
-          inputRef={setReferenceElement}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          value={internalInputValue}
-          onChange={handleInputChange}
-          disabled={disabled}
-          size={size}
-          autoFocus={autoFocus}
-        />
-      </div>
+      <Input
+        name={name}
+        inputRef={setReferenceElement}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        value={internalInputValue}
+        onChange={handleInputChange}
+        disabled={disabled}
+        size={size}
+        autoFocus={autoFocus}
+        fullWidth={fullWidth}
+      />
       <div>
         <If condition={isLoading}>
           {renderLoading()}
@@ -378,7 +378,7 @@ const Autocomplete = ({
             {renderEmpty()}
           </If>
           <If condition={!isEmpty && isOpen}>
-            <UsePortal>
+            <UsePortal {...portalProps}>
               <div ref={setPopperElement} style={{zIndex: 1, ...popperStyles.popper}} {...popperAttributes.popper}>
                 {getOptions()}
               </div>
