@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/autocomplete",
     "description": "Autocomplete component",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
