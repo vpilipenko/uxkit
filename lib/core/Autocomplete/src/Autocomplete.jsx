@@ -1,7 +1,8 @@
-import React, { Component, useRef, useState, useCallback, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, Component, useRef, useState, useCallback, useEffect, useMemo } from 'react'
+
 import EventListener from 'react-event-listener'
 import isHotkey from 'is-hotkey'
+const { usePopper } = require('react-popper')
 
 import Input from '@vpilipenko/input'
 require('@vpilipenko/input/dist/styles.css')
@@ -12,6 +13,7 @@ require('@vpilipenko/menu/dist/styles.css')
 import MenuItem from '@vpilipenko/menu-item'
 require('@vpilipenko/menu-item/dist/styles.css')
 
+import Portal from './Portal'
 
 const isDown = isHotkey('down')
 const isUp = isHotkey('up')
@@ -19,8 +21,6 @@ const isLeft = isHotkey('left')
 const isRight = isHotkey('right')
 const isEsc = isHotkey('esc')
 const isEnter = isHotkey('enter')
-
-let blurTimer = -1
 
 const Autocomplete = ({
   query = '',
@@ -31,7 +31,11 @@ const Autocomplete = ({
   onQuery = q => q,
   isLoading = false,
   autoSelectFirstItem = false,
-  filter = o => true,
+  filter = (query, obj, index) => {
+    const h = obj[labelKey].toLowerCase()
+    const n = query.toLowerCase() // const n = query ? query.toLowerCase() : -1
+    return h.indexOf(n) > -1
+  },
   sort = (a, b) => a > b ? 1 : -1,
   value = null,
   labelKey = 'label',
@@ -40,9 +44,8 @@ const Autocomplete = ({
   getValue = o => o[valueKey],
   className,
   classNames = {},
-  optionComponent = 'div',
+  optionComponent = MenuItem,
   renderOption = null,
-  groupBy = l => l,
   onClear = () => { },
   onOpen = () => { },
   onClose = () => { },
@@ -61,8 +64,15 @@ const Autocomplete = ({
   defaultValue = null,
   name = '',
   isMultiple = false,
+  usePortal = true,
+  disabled = false,
+  size = 'm',
+  groupBy = '',
+  renderGroupSubheader = null,
   ...other
 }) => {
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
 
   const containerRef = useRef(null)
 
@@ -221,13 +231,10 @@ const Autocomplete = ({
     setInternalFocusIndex(focusIndex)
   }, [focusIndex])
 
-  useEffect(() => {
-    setInternalOptions(
-      (options || [])
-        .filter((o, i) => filter(internalInputValue, o, i))
-        .sort(sort)
-      //  groupBy .....
-    )
+  useEffect(() => {  
+    setInternalOptions((options || [])
+    .filter((o, i) => filter(internalInputValue, o, i))
+    .sort(sort))
   }, [options, internalInputValue])
 
   useEffect(() => {
@@ -252,16 +259,114 @@ const Autocomplete = ({
     }
   }, [internalInputValue, isMultiple])
 
+
+  const getOption = (option, index) => {
+    const optionValue = getValue(option)
+    const optionLabel = getLabel(option)
+    const isFocusedOption = internalFocusIndex === index
+    const isChecked = isMultiple ? (
+      value && !!value.find(o => getValue(o) === optionValue)
+    ) : (
+
+      value && getValue(value) === optionValue
+    )
+
+    
+    if (typeof renderOption === 'function') {
+      return renderOption(option, index, internalOptions, isFocusedOption, isChecked, optionComponent)
+    }
+
+    const OptionComponent = optionComponent
+
+    return (
+      <OptionComponent
+        size={size}
+        focused={isFocusedOption}
+        active={isChecked}
+      >
+        {optionLabel}
+      </OptionComponent>
+    )
+  }
+
+  const getGroupSubheader = (subheader) => {
+    if (typeof renderGroupSubheader === 'function') {
+      return renderGroupSubheader(subheader)
+    }
+    return <div>{subheader}</div>
+  }
+
+  const getOptions = () => {
+    let curGroup
+    return (
+      <Menu size={size}>
+        {internalOptions
+          .map((option, index) => {
+            const optionValue = getValue(option)
+            let groupSubheader
+            if (groupBy) {
+              const gv = option[groupBy]
+              if (curGroup !== gv) {
+                curGroup = gv
+                groupSubheader = gv
+              }
+            }
+            return (
+              <Fragment key={index}>
+                <If condition={groupSubheader}>
+                  {getGroupSubheader(groupSubheader)}
+                </If>
+                <div
+                  data-value={optionValue}
+                  data-index={index}
+                  onMouseEnter={() => setInternalFocusIndex(index)}
+                >
+                  {getOption(option, index)}
+                </div>
+              </Fragment>
+            )
+          })}
+      </Menu>
+    )
+  }
+
+
   const isEmpty = !internalOptions.length
+
+  const sameWidth = useMemo(() => ({
+    name: 'sameWidth',
+    enabled: true,
+    phase: 'beforeWrite',
+    requires: ['computeStyles'],
+    fn: ({ state }) => {
+      state.styles.popper.width = `${state.rects.reference.width}px`;
+    },
+    effect: ({ state }) => {
+      state.elements.popper.style.width = `${
+        state.elements.reference.offsetWidth
+      }px`;
+    }
+  }), [])
+  
+  const { styles: popperStyles, attributes: popperAttributes } = usePopper(referenceElement, popperElement, {
+    placement: 'bottom-start',
+    modifiers: [sameWidth]
+  })
+
+  const UsePortal = usePortal ? Portal : 'div'
 
   return (
     <div ref={containerRef} onClick={handleClick}>
       <div>
         <Input
+          inputRef={setReferenceElement}
           onFocus={handleFocus}
           onBlur={handleBlur}
           value={internalInputValue}
           onChange={handleInputChange}
+          disabled={disabled}
+          size={size}
+          autoFocus={autoFocus}
         />
       </div>
       <div>
@@ -273,37 +378,11 @@ const Autocomplete = ({
             {renderEmpty()}
           </If>
           <If condition={!isEmpty && isOpen}>
-            <Menu>
-              aaaa
-              {internalOptions
-                .map((option, index) => {
-                  const isFocusedOption = internalFocusIndex === index
-                  const optionLabel = getLabel(option)
-                  const optionValue = getValue(option)
-                  const isChecked = isMultiple ? (
-                    value && !!value.find(o => getValue(o) === optionValue)
-                  ) : (
-                    value && getValue(value) === optionValue
-                  )
-                  return (
-                    <div
-                      data-value={optionValue}
-                      data-index={index}
-                      key={index}
-                    >
-                      <MenuItem
-                        size='m'
-                        focused={isFocusedOption}
-                        active={isChecked}
-                        onMouseEnter={() => setInternalFocusIndex(index)}
-
-                      >
-                        {optionLabel} / {optionValue}
-                      </MenuItem>
-                    </div>
-                  )
-                })}
-            </Menu>
+            <UsePortal>
+              <div ref={setPopperElement} style={{zIndex: 1, ...popperStyles.popper}} {...popperAttributes.popper}>
+                {getOptions()}
+              </div>
+            </UsePortal>
           </If>
         </If>
       </div>

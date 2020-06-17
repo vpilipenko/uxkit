@@ -23,10 +23,12 @@
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54",
     "dependencies": {
+        "@popperjs/core": "^2.4.2",
         "@vpilipenko/input": "^0.2.6",
         "@vpilipenko/menu": "0.0.7",
         "@vpilipenko/menu-item": "^0.2.9",
         "is-hotkey": "^0.1.6",
-        "react-event-listener": "^0.6.6"
+        "react-event-listener": "^0.6.6",
+        "react-popper": "^2.2.3"
     }
 }
