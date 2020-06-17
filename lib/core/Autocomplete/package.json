@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/autocomplete",
     "description": "Autocomplete component",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -26,7 +26,7 @@
         "@popperjs/core": "^2.4.2",
         "@vpilipenko/input": "^0.2.6",
         "@vpilipenko/menu": "0.0.7",
-        "@vpilipenko/menu-item": "^0.2.9",
+        "@vpilipenko/menu-item": "^0.2.10",
         "is-hotkey": "^0.1.6",
         "react-event-listener": "^0.6.6",
         "react-popper": "^2.2.3"
