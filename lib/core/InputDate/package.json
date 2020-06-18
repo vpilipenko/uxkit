@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input-date",
     "description": "InputDate component",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
