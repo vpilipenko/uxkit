@@ -7,6 +7,11 @@ import cx from 'classnames'
 
 import { findClosest } from './utils'
 
+import NavRenderer from './NavRenderer'
+import CollapseBtn from './CollapseBtn'
+
+import set from 'lodash.set'
+
 
 class Layout extends Component {
 
@@ -41,10 +46,15 @@ class Layout extends Component {
     onContentClick: PropTypes.func,
     /** Nav item click handler */
     onNavItemClick: PropTypes.func,
+    /** Dropdown item click handler */
+    onDropDownClick: PropTypes.func,
     /** Logout button click handler */
     onLogoutClick: PropTypes.func,
     /** If layout collapsed controlled you may use this handler to track events */
     onProbablyCollapsed: PropTypes.func,
+
+    header: PropTypes.any, // TODO
+    footer: PropTypes.any, // TODO
   };
 
   static defaultProps = {
@@ -56,8 +66,9 @@ class Layout extends Component {
 
   constructor(props) {
     super(props)
-    const { collapsed, defaultCollapsed, layoutHeight } = props
+    const { nav, collapsed, defaultCollapsed, layoutHeight } = props
     this.state = {
+      nav: nav,
       collapsed: collapsed ? collapsed : defaultCollapsed ? defaultCollapsed : false,
       layoutHeight: layoutHeight ? layoutHeight : window.innerHeight,
     }
@@ -67,9 +78,21 @@ class Layout extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { collapsed } = this.props
-    if (prevProps.collapsed !== collapsed) {
+    const { nav, collapsed } = this.props
+
+    const prevCollapsed = prevProps.collapsed
+    const curCollapsed = collapsed
+    if (prevCollapsed !== curCollapsed) {
       this.setState({ collapsed })
+      try {
+        window.dispatchEvent(new Event('resize'))
+      } catch(e) {}
+    }
+
+    const prevNav = JSON.stringify(prevProps.nav)
+    const curNav = JSON.stringify(nav)
+    if (prevNav !== curNav) {
+      this.setState({ nav })
     }
   }
 
@@ -90,14 +113,16 @@ class Layout extends Component {
       onMenuClick,
       onContentClick,
       onNavItemClick,
+      onDropDownClick,
       onLogoutClick,
       onProbablyCollapsed,
     } = this.props
 
     const { collapsed } = this.state
 
-
     const el = findClosest(e.target, '[data-type]')
+    if(!el || !el.dataset) {return}
+
     const { type } = el.dataset
 
     if (type === 'collapse_btn') {
@@ -138,6 +163,14 @@ class Layout extends Component {
       }
     }
 
+    if (type === 'dropdown') {
+      onDropDownClick && onDropDownClick(e)
+      const { path, open } = el.dataset
+      const newNav = [...this.state.nav]
+      set(newNav, `${path}.isOpen`, !JSON.parse(open))
+      this.setState({ nav: newNav })
+    }
+
     if (type === 'logout_btn') {
       onLogoutClick && onLogoutClick(e)
     }
@@ -147,14 +180,17 @@ class Layout extends Component {
   render() {
     const {
       logo,
-      nav,
       navItemComponent,
-      logoutText,
+      // logoutText,
       onLogoutClick,
       children,
     } = this.props
 
-    const { collapsed, layoutHeight } = this.state
+    const {
+      nav,
+      collapsed,
+      layoutHeight,
+    } = this.state
 
     return (
       <div
@@ -176,25 +212,16 @@ class Layout extends Component {
           <If condition={nav || onLogoutClick}>
             <div className={cm.nav}>
               <If condition={nav}>
-                {nav.map((item, index) => {
-                  return (
-                    <NavItem
-                      component={navItemComponent}
-                      data-type={'nav_item'}
-                      key={`${item.to}_${index}`}
-                      {...item}
-                    />
-                  )
-                })}
+                <NavRenderer nav={nav} navItemComponent={navItemComponent} />
               </If>
-              <If condition={onLogoutClick}>
+              {/* <If condition={onLogoutClick}>
                 <NavItem
                   component='div'
                   data-type={'logout_btn'}
-                  className={cm.exit}
+                  className={cm.nav_item_exit}
                   text={logoutText}
                 />
-              </If>
+              </If> */}
             </div>
           </If>
         </div>
@@ -204,57 +231,12 @@ class Layout extends Component {
           onClick={this.handleClick}
         >
           {children}
-          <div
-            className={cx(cm.collapse_btn, {
-              [cm.active]: !collapsed,
-            })}
-            data-type='collapse_btn'
-          >
-            <div className={cm.btn}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
+          <CollapseBtn collapsed={collapsed} />
         </div>
       </div>
     )
   }
 }
 
-const NavItem = props => {
-  const {
-    text,
-    active,
-    component,
-    className,
-    ...other
-  } = props
-
-  const Component = component
-
-  if (typeof(component) === 'function') {
-    return component({
-      text,
-      active,
-      itemClass: cm.nav_item,
-      itemActiveClass: cm.active,
-      ...other,
-    })
-  }
-
-  return (
-    <Component
-      className={
-        cx(cm.nav_item, {
-          [cm.active]: active,
-        }, className)
-      }
-      {...other}
-    >
-      {text}
-    </Component>
-  )
-}
 
 export default Layout
