@@ -181,7 +181,7 @@ class Layout extends Component {
     const {
       logo,
       navItemComponent,
-      // logoutText,
+      logoutText,
       onLogoutClick,
       children,
     } = this.props
@@ -214,14 +214,14 @@ class Layout extends Component {
               <If condition={nav}>
                 <NavRenderer nav={nav} navItemComponent={navItemComponent} />
               </If>
-              {/* <If condition={onLogoutClick}>
+              <If condition={onLogoutClick}>
                 <NavItem
                   component='div'
                   data-type={'logout_btn'}
                   className={cm.nav_item_exit}
                   text={logoutText}
                 />
-              </If> */}
+              </If>
             </div>
           </If>
         </div>
