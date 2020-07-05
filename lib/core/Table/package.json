@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/table",
     "description": "Table component",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
