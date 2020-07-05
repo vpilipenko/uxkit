@@ -85,6 +85,9 @@ class Table extends Component {
       hoverable,
       striped,
 
+      headerComponent,
+      headerProps,
+
       // eslint-disable-next-line
       onClick, onRowClick, onCellClick,
 
@@ -105,6 +108,8 @@ class Table extends Component {
         <Header
           cols={cols}
           stickyHeader={stickyHeader}
+          headerComponent={headerComponent}
+          headerProps={headerProps}
         />
         {rows.map((row, index, arr) => {
           return (
