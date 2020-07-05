@@ -9,6 +9,7 @@ import { findClosest } from './utils'
 
 import NavRenderer from './NavRenderer'
 import CollapseBtn from './CollapseBtn'
+import NavItem from './NavItem'
 
 import set from 'lodash.set'
 
