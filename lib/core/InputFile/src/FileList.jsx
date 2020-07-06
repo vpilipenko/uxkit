@@ -4,10 +4,10 @@ import React, { Component } from 'react'
 
 import { humanizeFileSize } from './utils'
 
-const IconButton = require('@vpilipenko/icon-button')
-require('@vpilipenko/icon-button/dist/styles.css')
+import IconButton from '@vpilipenko/icon-button'
+import '@vpilipenko/icon-button/dist/styles.css'
 
-const { Delete } = require('@vpilipenko/icons')
+import { Delete } from '@vpilipenko/icons'
 
 
 class FileList extends Component {
