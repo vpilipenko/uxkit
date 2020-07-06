@@ -9,7 +9,7 @@
 		border: 1px solid
 		transition: all .2s ease-in-out
 
-		input {
+		input, textarea {
 			margin: 0
 			padding: 0
 			width: 100%
@@ -63,7 +63,7 @@
 		.input_box {
 			opacity: .4
 
-			input {
+			input, textarea {
 				cursor: not-allowed
 			}
 		}
@@ -117,16 +117,20 @@
 			font-size: .875rem
 			line-height: 1.5rem
 
-			input {
+			input, textarea {
 				padding: .3125rem .75rem
 			}
 
-			&.with_prefix input {
-				padding-left: 0
+			&.with_prefix {
+				input, textarea {
+					padding-left: 0
+				}
 			}
 
-			&.with_suffix input {
-				padding-right: 0
+			&.with_suffix {
+				input, textarea {
+					padding-right: 0
+				}
 			}
 
 			.prefix {
@@ -151,16 +155,20 @@
 			font-size: 1rem
 			line-height: 1.5rem
 
-			input {
+			input, textarea {
 				padding: .5625rem .75rem
 			}
 
-			&.with_prefix input {
-				padding-left: 0
+			&.with_prefix {
+				input, textarea {
+					padding-left: 0
+				}
 			}
 
-			&.with_suffix input {
-				padding-right: 0
+			&.with_suffix {
+				input, textarea {
+					padding-right: 0
+				}
 			}
 
 			.prefix {
@@ -185,16 +193,20 @@
 			font-size: 1.125rem
 			line-height: 1.25rem
 
-			input {
+			input, textarea{
 				padding: 1rem .75rem
 			}
 
-			&.with_prefix input {
-				padding-left: 0
+			&.with_prefix {
+				input, textarea {
+					padding-left: 0
+				}
 			}
 
-			&.with_suffix input {
-				padding-right: 0
+			&.with_suffix {
+				input, textarea {
+					padding-right: 0
+				}
 			}
 
 			.prefix {

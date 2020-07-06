@@ -75,6 +75,8 @@ export class Input extends Component {
     maxWidth: PropTypes.string,
     /** Props directly to the input field */
     inputProps: PropTypes.object,
+    /** Textarea */
+    textarea: PropTypes.bool,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
@@ -186,6 +188,7 @@ export class Input extends Component {
       onTouchMove,
       onTouchStart,
       onClear, // eslint-disable-line
+      textarea,
       ...other
     } = this.props
 
@@ -194,7 +197,7 @@ export class Input extends Component {
       focused,
     } = this.state
 
-    const InputComponent = component ? component : 'input'
+    const InputComponent = component ? component : textarea ? 'textarea' : 'input'
 
     return (
       <div
