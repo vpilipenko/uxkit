@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input-file",
     "description": "InputFile component",
-    "version": "1.2.6",
+    "version": "1.2.7",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
