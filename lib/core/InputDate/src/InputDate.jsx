@@ -7,7 +7,7 @@ import 'moment/locale/ru'
 import MomentLocaleUtils, {
   formatDate,
   parseDate,
-} from 'react-day-picker/lib/src/addons/MomentLocaleUtils'
+} from 'react-day-picker/moment'
 import './style.css'
 
 import InputMasked from '@vpilipenko/input-masked'
