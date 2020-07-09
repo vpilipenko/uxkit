@@ -25,7 +25,7 @@
         "@vpilipenko/icons": "^0.2.10",
         "@vpilipenko/input-masked": "^0.2.6",
         "@vpilipenko/select": "^0.2.10",
-        "moment": "^2.26.0",
+        "moment": "^2.27.0",
         "react-day-picker": "^7.4.8"
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
