@@ -1,6 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
+import ReactDOM from 'react-dom'
 
 import PropTypes from 'prop-types'
+
+import { usePopper } from 'react-popper'
+
 
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 import 'moment/locale/ru'
@@ -20,6 +24,8 @@ import IconButton from '@vpilipenko/icon-button'
 import '@vpilipenko/icon-button/dist/styles.css'
 
 import { ArrowLeft, ArrowRight } from '@vpilipenko/icons'
+
+import Portal from './Portal'
 
 
 class InputDate extends Component {
@@ -48,6 +54,11 @@ class InputDate extends Component {
     this.setState({ month })
   }
 
+  handleInputRef = node => {
+    node = ReactDOM.findDOMNode(node)
+    this.setState({ inputEl: node })
+  }
+
   render() {
     const {
       dayPickerProps,
@@ -56,6 +67,9 @@ class InputDate extends Component {
       toMonth,
       ...other
     } = this.props
+    const {
+      inputEl,
+    } = this.state
 
     let captionElement
     if (yearMonthSelect) {
@@ -77,6 +91,7 @@ class InputDate extends Component {
 
     return (
       <DayPickerInput
+        overlayComponent={p => <CustomOverlay referenceElement={inputEl} {...p}/>}
         formatDate={formatDate}
         parseDate={parseDate}
         placeholder='ДД.ММ.ГГГГ'
@@ -84,6 +99,7 @@ class InputDate extends Component {
           mask: '99.99.9999',
           maskChar: null,
         }}
+        ref={this.handleInputRef}
         dayPickerProps={{
           localeUtils: MomentLocaleUtils,
           locale: 'ru',
@@ -120,7 +136,7 @@ const YearMonthSelect = props => {
 
   return (
     <form
-      className="DayPicker-Caption"
+      className='DayPicker-Caption'
     >
       <Select
         name='month'
@@ -180,6 +196,31 @@ const Navbar = props => {
         <ArrowRight fill='#bab9ba' />
       </IconButton>
     </div>
+  )
+}
+
+const CustomOverlay = props => {
+  const [popperElement, setPopperElement] = useState(null);
+
+  const { referenceElement, children, classNames, ...other } = props
+
+  const { styles: popperStyles, attributes: popperAttributes } = usePopper(referenceElement, popperElement, {
+    placement: 'bottom-start',
+  })
+
+
+  return (
+    <Portal>
+      <div
+        ref={setPopperElement}
+        style={{zIndex: 1, ...popperStyles.popper}}
+        className={classNames.overlayWrapper}
+        {...popperAttributes.popper}
+        {...other}
+      >
+        {children}
+      </div>
+    </Portal>
   )
 }
 
