@@ -238,6 +238,7 @@ const Autocomplete = ({
     setInternalOptions((options || [])
     .filter((o, i) => filter(internalInputValue, o, i))
     .sort(sort))
+    onQuery(internalInputValue)
   }, [options, internalInputValue])
 
   useEffect(() => {
