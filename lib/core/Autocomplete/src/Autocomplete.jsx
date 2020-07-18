@@ -136,6 +136,7 @@ const Autocomplete = ({
 
   const handleInputChange = useCallback(e => {
     const { value } = e.target
+    onQuery(value)
     setInternalInputValue(value)
   }, [])
 
@@ -238,7 +239,6 @@ const Autocomplete = ({
     setInternalOptions((options || [])
     .filter((o, i) => filter(internalInputValue, o, i))
     .sort(sort))
-    onQuery(internalInputValue)
   }, [options, internalInputValue])
 
   useEffect(() => {
