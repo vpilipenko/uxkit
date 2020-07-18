@@ -331,7 +331,8 @@ class InputTime extends Component {
       size,
       placeholder,
       disabled,
-      inputProps
+      style,
+      inputProps,
     } = this.props
 
     const {
@@ -352,6 +353,7 @@ class InputTime extends Component {
               ref={node => this.handleInputRef(node, ref)}
               onChange={this.handleInputChange}
               disabled={disabled}
+              style={style}
               {...inputProps}
             />
           )}}
@@ -369,7 +371,7 @@ class InputTime extends Component {
       showAMPM,
       AMPM,
       size,
-      popupPlacement
+      popupPlacement,
     } = this.props
 
     const {
@@ -393,7 +395,7 @@ class InputTime extends Component {
             <div
               ref={node => this.handlePopupRef(node, ref)}
               style={{
-                ...style,
+                ...st,
                 zIndex: popupZIndex,
               }} 
               data-placement={placement}
