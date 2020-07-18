@@ -395,7 +395,7 @@ class InputTime extends Component {
             <div
               ref={node => this.handlePopupRef(node, ref)}
               style={{
-                ...st,
+                ...style,
                 zIndex: popupZIndex,
               }} 
               data-placement={placement}
