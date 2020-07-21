@@ -46,6 +46,7 @@ class ValueButton extends Component {
       <button
         disabled={disabled}
         onClick={onClick}
+        type='button'
         className={cx({
           [cm.value_button]: true,
           [cm.placeholder]: !!placeholder && !value.length,
