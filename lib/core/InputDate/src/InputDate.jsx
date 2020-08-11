@@ -202,7 +202,7 @@ const Navbar = props => {
 const CustomOverlay = props => {
   const [popperElement, setPopperElement] = useState(null);
 
-  const { referenceElement, children, classNames, ...other } = props
+  const { referenceElement, children, classNames } = props
 
   const { styles: popperStyles, attributes: popperAttributes } = usePopper(referenceElement, popperElement, {
     placement: 'bottom-start',
@@ -216,7 +216,6 @@ const CustomOverlay = props => {
         style={{zIndex: 1, ...popperStyles.popper}}
         className={classNames.overlayWrapper}
         {...popperAttributes.popper}
-        {...other}
       >
         {children}
       </div>
