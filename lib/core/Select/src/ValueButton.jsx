@@ -24,6 +24,7 @@ class ValueButton extends Component {
       onFocus,
       onBlur,
       onKeyDown,
+      error,
     } = this.props
 
     let text = placeholder
@@ -55,6 +56,7 @@ class ValueButton extends Component {
           [cm[`size-${size}`]]: !!size,
           [cm[`theme-${theme}`]]: !!theme,
           [cm.fullWidth]: fullWidth,
+          [cm.error]: error,
         }, className)}
         onFocus={onFocus}
         onBlur={onBlur}

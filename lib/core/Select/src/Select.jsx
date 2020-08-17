@@ -5,12 +5,14 @@ import PropTypes from 'prop-types'
 
 const { Manager, Reference, Popper } = require('react-popper')
 
-// const Menu = require('@vpilipenko/menu')
 import Menu from '@vpilipenko/menu'
 require('@vpilipenko/menu/dist/styles.css')
 
 import MenuItem from '@vpilipenko/menu-item'
 require('@vpilipenko/menu-item/dist/styles.css')
+
+import Text from '@vpilipenko/text'
+require('@vpilipenko/text/dist/styles.css')
 
 import { findClosest, getElIndex } from './utils'
 
@@ -47,6 +49,10 @@ class Select extends Component {
     optionsZIndex: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+    ]),
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool,
     ]),
   }
 
@@ -317,7 +323,8 @@ class Select extends Component {
       theme,
       style,
       className,
-      fullWidth
+      fullWidth,
+      error,
     } = this.props
 
     const {
@@ -328,32 +335,39 @@ class Select extends Component {
     } = this.state
 
     return (
-      <Reference>
-        {({ ref }) => {
-          return (
-            <ValueButton
-              ref={node => this.handleValueButtonRef(node, ref)}
-              value={value}
-              options={options}
-              isOpen={isOpen}
-              placeholder={
-                focusedIndex !== undefined
-                  ? options.filter((o, i) => i === focusedIndex).pop().text
-                  : placeholder
-              }
-              onClick={this.handleValueButtonClick}
-              disabled={disabled}
-              isLoading={isLoading}
-              size={size}
-              className={className}
-              style={style}
-              theme={theme}
-              fullWidth={fullWidth}
-              onKeyDown={this.handleKeyDown}
-            />
-          )
-        }}
-      </Reference>
+      <>
+        <Reference>
+          {({ ref }) => {
+            return (
+              <ValueButton
+                ref={node => this.handleValueButtonRef(node, ref)}
+                value={value}
+                options={options}
+                isOpen={isOpen}
+                placeholder={
+                  focusedIndex !== undefined
+                    ? options.filter((o, i) => i === focusedIndex).pop().text
+                    : placeholder
+                }
+                onClick={this.handleValueButtonClick}
+                disabled={disabled}
+                isLoading={isLoading}
+                size={size}
+                className={className}
+                style={style}
+                theme={theme}
+                fullWidth={fullWidth}
+                error={error}
+                onKeyDown={this.handleKeyDown}
+              />
+            )
+          }}
+        </Reference>
+        <If condition={error}>
+          <div><Text color='red' size='xs'>{error}</Text></div>
+        </If>
+      </>
+    
     )
   }
 
