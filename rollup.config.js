@@ -6,7 +6,7 @@ import babel from "rollup-plugin-babel"
 import resolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs"
 import postcss from 'rollup-plugin-postcss'
-// import minify from 'rollup-plugin-babel-minify'
+import minify from 'rollup-plugin-babel-minify'
 import externals from 'rollup-plugin-node-externals'
 
 
@@ -53,11 +53,11 @@ export default {
       preserveSymlinks: true,
     }),
     postcss({
-      modules: true,
+      autoModules: true,
       extract: './dist/styles.css',
       extensions: ['.css', '.styl'],
       // minimize: true,
     }),
-    // minify(),
+    minify(),
   ],
 };
