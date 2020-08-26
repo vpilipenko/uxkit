@@ -59,6 +59,7 @@ class InputDate extends Component {
     this.setState({ inputEl: node })
   }
 
+  
   render() {
     const {
       dayPickerProps,
