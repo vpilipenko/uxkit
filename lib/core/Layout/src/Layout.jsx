@@ -11,7 +11,7 @@ import NavRenderer from './NavRenderer'
 import CollapseBtn from './CollapseBtn'
 import NavItem from './NavItem'
 
-import set from 'lodash.set'
+import { set, cloneDeep } from 'lodash'
 
 
 class Layout extends Component {
@@ -109,7 +109,7 @@ class Layout extends Component {
 
   handleClick = e => {
     const {
-      collapsed: controlledCollapsed,
+      collapsed: cc,
       onToggleClick,
       onMenuClick,
       onContentClick,
@@ -120,6 +120,8 @@ class Layout extends Component {
     } = this.props
 
     const { collapsed } = this.state
+
+    const controlledCollapsed = cc !== undefined
 
     const el = findClosest(e.target, '[data-type]')
     if(!el || !el.dataset) {return}
@@ -167,8 +169,10 @@ class Layout extends Component {
     if (type === 'dropdown') {
       onDropDownClick && onDropDownClick(e)
       const { path, open } = el.dataset
-      const newNav = [...this.state.nav]
+
+      const newNav = cloneDeep(this.state.nav)
       set(newNav, `${path}.isOpen`, !JSON.parse(open))
+
       this.setState({ nav: newNav })
     }
 

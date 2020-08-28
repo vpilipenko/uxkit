@@ -3,6 +3,7 @@ import cm from './Dropdown.module.styl'
 import React, { useState, useEffect } from 'react'
 
 import NavItem from './NavItem'
+import { ArrowDown, ArrowTop } from '@vpilipenko/icons'
 
 const Dropdown = ({
   title,
@@ -27,7 +28,7 @@ const Dropdown = ({
     <div className={cm.dropdown}>
       <NavItem
         text={title}
-        suffix={open ? 'a_u' : 'a_d'}
+        suffix={open ? <ArrowTop /> : <ArrowDown />} // eslint-disable-line
         data-type='dropdown'
         data-path={path}
         data-open={open}

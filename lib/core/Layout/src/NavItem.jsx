@@ -1,7 +1,8 @@
+import cm from './Layout.module.styl'
+
 import React from 'react'
 
 import cx from 'classnames'
-import cm from './Layout.module.styl'
 
 const NavItem = props => {
   const {
