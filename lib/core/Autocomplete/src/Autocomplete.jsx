@@ -105,6 +105,7 @@ const Autocomplete = ({
   const [internalFocusIndex, setInternalFocusIndex] = useState(focusIndex)
   const [isInputFocused, setInputFocused] = useState(false)
   const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [isLoaded, setIsLoaded] = useState(false)
 
 
   const inputValueUpdate = useCallback((value) => {
@@ -130,6 +131,7 @@ const Autocomplete = ({
         }
         return [...prev, opt]
       }
+      setIsOpen(false)
       return opt
     })
   }, [isMultiple, internalOptions, internalFocusIndex])
@@ -198,12 +200,12 @@ const Autocomplete = ({
 
   }, [internalOptions, internalFocusIndex])
 
-  useEffect(() => {
-    !isOpen && internalValue && inputValueUpdate()
-  }, [isOpen])
 
   useEffect(() => {
     if (!isOpen) {
+      if (internalValue) {
+        inputValueUpdate()
+      }
       onClose()
     } else {
       onOpen()
@@ -242,12 +244,9 @@ const Autocomplete = ({
   }, [options, internalInputValue])
 
   useEffect(() => {
-    onChange({
-      target: {
-        name,
-        value: internalValue,
-      }
-    })
+    if (isLoaded) {
+      onChange({ target: { name, value: internalValue } })
+    }
   }, [name, internalValue])
 
   useEffect(() => {
@@ -261,6 +260,10 @@ const Autocomplete = ({
       !internalInputValue && setInternalValue(null)
     }
   }, [internalInputValue, isMultiple])
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
 
 
   const getOption = (option, index) => {
@@ -375,7 +378,7 @@ const Autocomplete = ({
           {renderLoading()}
         </If>
         <If condition={!isLoading}>
-          <If condition={isEmpty}>
+          <If condition={isEmpty && isOpen}>
             {renderEmpty()}
           </If>
           <If condition={!isEmpty && isOpen}>
