@@ -360,7 +360,7 @@ const Autocomplete = ({
   const portalProps = portalTarget ? {target: portalTarget} : {}
 
   return (
-    <div ref={containerRef} onClick={handleClick}>
+    <div className={className} ref={containerRef} onClick={handleClick}>
       <Input
         name={name}
         inputRef={setReferenceElement}
