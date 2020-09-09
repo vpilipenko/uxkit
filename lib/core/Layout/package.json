@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/layout",
     "description": "Layout component",
-    "version": "0.0.23",
+    "version": "0.0.24",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -23,7 +23,7 @@
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54",
     "dependencies": {
-        "@vpilipenko/icons": "^0.2.12",
+        "@vpilipenko/icons": "^0.2.13",
         "lodash": "^4.17.20"
     }
 }

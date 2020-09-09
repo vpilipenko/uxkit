@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input-date",
     "description": "InputDate component",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -23,7 +23,7 @@
     "dependencies": {
         "@popperjs/core": "^2.4.4",
         "@vpilipenko/icon-button": "^0.2.4",
-        "@vpilipenko/icons": "^0.2.12",
+        "@vpilipenko/icons": "^0.2.13",
         "@vpilipenko/input-masked": "^0.2.6",
         "@vpilipenko/select": "^0.2.12",
         "moment": "^2.27.0",

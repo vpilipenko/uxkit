@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input-file",
     "description": "InputFile component",
-    "version": "1.2.10",
+    "version": "1.2.11",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -25,6 +25,6 @@
     "dependencies": {
         "@vpilipenko/button": "^0.2.6",
         "@vpilipenko/icon-button": "^0.2.4",
-        "@vpilipenko/icons": "^0.2.12"
+        "@vpilipenko/icons": "^0.2.13"
     }
 }
