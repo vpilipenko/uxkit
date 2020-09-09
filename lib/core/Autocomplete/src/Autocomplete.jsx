@@ -72,6 +72,7 @@ const Autocomplete = ({
   maxVisibleOptions = 10,
   fullWidth = false,
   maxOptionsHeight = 300,
+  inputProps,
   ...other
 }) => {
   const [referenceElement, setReferenceElement] = useState(null);
@@ -372,6 +373,7 @@ const Autocomplete = ({
         size={size}
         autoFocus={autoFocus}
         fullWidth={fullWidth}
+        {...inputProps}
       />
       <div>
         <If condition={isLoading}>
