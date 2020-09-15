@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/input-date",
     "description": "InputDate component",
-    "version": "0.1.18",
+    "version": "0.1.19",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -25,7 +25,7 @@
         "@vpilipenko/icon-button": "^0.2.4",
         "@vpilipenko/icons": "^0.2.13",
         "@vpilipenko/input-masked": "^0.2.6",
-        "@vpilipenko/select": "^0.2.12",
+        "@vpilipenko/select": "^0.2.13",
         "moment": "^2.27.0",
         "react-day-picker": "^7.4.8",
         "react-popper": "^2.2.3"
