@@ -66,6 +66,7 @@ class InputDate extends Component {
       yearMonthSelect,
       fromMonth,
       toMonth,
+      size,
       ...other
     } = this.props
     const {
@@ -99,6 +100,7 @@ class InputDate extends Component {
         inputProps={{
           mask: '99.99.9999',
           maskChar: null,
+          size: size,
         }}
         ref={this.handleInputRef}
         dayPickerProps={{
