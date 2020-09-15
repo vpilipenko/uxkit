@@ -56,6 +56,7 @@ class Checkbox extends Component {
       fullWidth,
       error,
       tabIndex,
+      noPadding,
       ...other
     } = this.props
 
@@ -70,6 +71,7 @@ class Checkbox extends Component {
           [cm.error]: !!error,
           [cm.disabled]: disabled,
           [cm.fullWidth]: fullWidth,
+          [cm.noPadding]: noPadding,
         }, className)}
         style={style}
         tabIndex={tabIndex}
