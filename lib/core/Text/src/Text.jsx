@@ -15,6 +15,7 @@ const Text = props => {
       color,
       className,
       style,
+      fullWidth = false,
       children,
       ...other
     } = props
@@ -22,10 +23,11 @@ const Text = props => {
     return (
       <span
         className={cx(cm.text, {
-          [cm[`size-${size.toLowerCase()}`]]: !!size,
-          [cm[`weight-${weight.toLowerCase()}`]]: !!weight,
-          [cm[`theme-${theme.toLowerCase()}`]]: !!theme,
-          [cm[`color-${color && color.toLowerCase()}`]]: !!color,
+          [cm[`size_${size.toLowerCase()}`]]: !!size,
+          [cm[`weight_${weight.toLowerCase()}`]]: !!weight,
+          [cm[`theme_${theme.toLowerCase()}`]]: !!theme,
+          [cm[`color_${color && color.toLowerCase()}`]]: !!color,
+          [cm.full_width]: fullWidth,
         }, className)}
         style={style}
         {...other}
