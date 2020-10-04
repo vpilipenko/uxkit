@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/form-group",
     "description": "FormGroup component",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -23,6 +23,6 @@
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54",
     "dependencies": {
-        "@vpilipenko/text": "0.0.18"
+        "@vpilipenko/text": "^0.0.19"
     }
 }
