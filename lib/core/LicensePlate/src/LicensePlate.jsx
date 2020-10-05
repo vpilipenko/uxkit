@@ -5,10 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-// Todo
-// 1. No match sign by prop
-// 2. Transpile plate characters to cyrrilyc
-// 3. Replace root div to render
+import toCyrillic from './utils'
 
 
 class LicensePlate extends Component {
@@ -17,43 +14,62 @@ class LicensePlate extends Component {
     /** Component ID in DOM */
     id: PropTypes.string,
     /** Serie, number, region */
-    value: PropTypes.string,
-    /** Invalid number text */
-    invalidText: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func,
-    ]),
+    value: PropTypes.string.isRequired,
     /** Plate type */
     type: PropTypes.oneOf(['type1', 'type1b', 'type2']),
     /** Size of component */
     size: PropTypes.oneOf(['s', 'm', 'l']),
+    /** isValid */
+    isValid: PropTypes.func,
+    /** Invalid text */
+    invalidText: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
   }
 
   static defaultProps = {
     size: 'm',
-    invalidText: 'Invalid number',
   }
 
   constructor(props, context) {
     super(props, context)
-    const { value, children, type } = this.props
+    const { value, type, isValid } = this.props
+    const v = this.getValue(value)
+    const t = type || this.getType(v)
+
+    isValid && isValid(!!t, t, v)
 
     this.state = {
-      value: value && value.toUpperCase() || children && children.toUpperCase(),
-      type: type || this.getType(value || children),
+      value: v,
+      type: t,
     }
   }
 
 
   componentDidUpdate(prevProps, prevState) {
-    const { value, children, type } = this.props
+    const { value, type, isValid } = this.props
 
-    if (prevProps.value !== value || prevProps.children !== children || prevProps.type !== type) {
+    if (prevProps.value !== value || prevProps.type !== type) {
+      const v = this.getValue(value)
+      const t = type || this.getType(v)
+
+      isValid && isValid(!!t, t, v)
+
       this.setState({
-        value: value && value.toUpperCase() || children && children.toUpperCase(),
-        type: type || this.getType(value),
+        value: v,
+        type: t,
       })
     }
+  }
+
+
+  getValue = value => {
+    if (!value) { return '' }
+    value = value.toUpperCase()
+    value = value.replace(/\s/g, '')
+    value = toCyrillic(value)
+    return value
   }
 
 
@@ -62,15 +78,11 @@ class LicensePlate extends Component {
       return ''
     }
 
-    /* Тип 1 ->   Регистрационные знаки легковых, грузовых автомобилей и автобусов */
+    // Тип 1 -> Регистрационные знаки легковых, грузовых автомобилей и автобусов
     const type1 = /^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{1}\d{3}[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}\d{2,3}$/g
-
-    /* Тип 1Б ->  Регистрационные знаки для легковых такси, транспортных средств,
-                  оборудованных для перевозок более восьми человек,
-                  осуществляющих перевозку на основании лицензии */
+    // Тип 1Б -> Регистрационные знаки для легковых такси, транспортных средств, оборудованных для перевозок более восьми человек, осуществляющих перевозку на основании лицензии
     const type1b = /^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}\d{5}$/g
-
-    /* Тип 2 ->   Регистрационные знаки для автомобильных прицепов и полуприцепов. */
+    // Тип 2 -> Регистрационные знаки для автомобильных прицепов и полуприцепов.
     const type2 = /^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}\d{6}$/g
 
     if (type1.test(value)) {
@@ -89,7 +101,6 @@ class LicensePlate extends Component {
   }
 
   renderType1 = ({ value, id, size }) => {
-    // eslint-disable-next-line
     value = value.match(/^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{1}|\d{3}|[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}|\d{2,3}/g) || []
     const serieStart = value[0]
     const number = value[1]
@@ -150,23 +161,24 @@ class LicensePlate extends Component {
     )
   }
 
-  renderInvalid = ({ value }) => {
-    const { id, size, invalidText } = this.props
+  renderInvalid = ({ value, id, size }) => {
+    const { invalidText } = this.props
 
     let text = invalidText
     if (typeof(invalidText) === 'function') {
-      text = invalidText({ value, invalidText })
+      text = invalidText({ value })
     }
 
     return (
       <div id={id} className={cx(cm.license_plate, {
         [cm[`size-${size}`]]: !!size,
       })}>
-        {text}
+        <span className={cm.main}>
+          {text || value}
+        </span>
       </div>
     )
   }
-
 
   getPlate = ({ type, value }) => {
     const { id, size } = this.props
@@ -189,7 +201,7 @@ class LicensePlate extends Component {
 
       default:
         return (
-          this.renderInvalid({ value })
+          this.renderInvalid({ value, id, size })
         )
     }
   }
