@@ -1,7 +1,7 @@
 {
     "name": "@vpilipenko/license-plate",
     "description": "LicensePlate component",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -19,8 +19,6 @@
     "peerDependencies": {
         "react": "^16.8.2",
         "react-dom": "^16.8.2"
-    },
-    "dependencies": {
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }
