@@ -30,7 +30,7 @@ class FileList extends Component {
               data-fileindex={index}
               key={index}
             >
-              <IconButton data-deleteindex={index}>
+              <IconButton data-deleteindex={index} type='button'>
                 <Delete fill='#FF1744' />
               </IconButton>
               <div className={cm.details}>
