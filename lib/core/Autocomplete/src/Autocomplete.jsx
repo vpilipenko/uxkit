@@ -122,6 +122,7 @@ const Autocomplete = ({
   }, [isMultiple, internalValue])
 
   const handleSelectOption = useCallback(() => {
+    if (!internalOptions.length) { return }
     setInternalValue(prev => {
       const opt = internalOptions[internalFocusIndex]
       const optValue = getValue(opt)
@@ -151,6 +152,9 @@ const Autocomplete = ({
 
   const handleBlur = useCallback(e => {
     setInputFocused(false)
+    if (!internalValue) {
+      setInternalInputValue('')
+    }
     // setIsOpen(false)
     onBlur(e)
   }, [internalValue])
@@ -373,6 +377,7 @@ const Autocomplete = ({
         size={size}
         autoFocus={autoFocus}
         fullWidth={fullWidth}
+        autoComplete='off'
         {...inputProps}
       />
       <div>
