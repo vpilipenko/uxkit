@@ -159,6 +159,7 @@ class InputFile extends Component {
       hint,
       fileListComponent,
       signNoFiles,
+      buttonText,
     } = this.props
 
     const { error, fileList } = this.state
@@ -171,6 +172,7 @@ class InputFile extends Component {
         <FileButton
           name={name}
           buttonComponent={buttonComponent}
+          buttonText={buttonText}
           accept={accept}
           capture={capture}
           multiple={multiple}

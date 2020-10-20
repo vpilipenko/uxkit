@@ -43,6 +43,7 @@ class FileButton extends Component {
     const {
       name,
       buttonComponent,
+      buttonText = 'Загрузить',
       accept,
       capture,
       multiple,
@@ -52,7 +53,7 @@ class FileButton extends Component {
 
     let Component = (
       <Button
-        text='Загрузить'
+        text={buttonText}
         prefix={<Upload />}
         onClick={onClick}
       />
