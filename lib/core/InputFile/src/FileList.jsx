@@ -17,6 +17,7 @@ class FileList extends Component {
       fileListComponent,
       fileList,
       onClick,
+      disabled,
     } = this.props
 
     if (!fileList || !fileList.length) { return signNoFiles ? signNoFiles : null }
@@ -30,10 +31,10 @@ class FileList extends Component {
               data-fileindex={index}
               key={index}
             >
-              <IconButton data-deleteindex={index} type='button'>
+              <IconButton data-deleteindex={index} type='button' disabled={disabled}>
                 <Delete fill='#FF1744' />
               </IconButton>
-              <div className={cm.details}>
+              <div className={cm.details} style={{ opacity: disabled ? .64 : 1}}>
                 <div className={cm.name}>{File.name}</div>
                 <div className={cm.size}>{humanizeFileSize(File.size)}</div>
               </div>

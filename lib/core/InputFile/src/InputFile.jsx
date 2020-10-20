@@ -63,7 +63,9 @@ class InputFile extends Component {
 
 
   handleFileListClick = e => {
-    const { name, onFileClick, onChange } = this.props
+    const { name, onFileClick, onChange, disabled } = this.props
+
+    if (disabled) { return }
 
     const el = e.target
 
@@ -188,6 +190,7 @@ class InputFile extends Component {
           fileList={fileList}
           fileListComponent={fileListComponent}
           signNoFiles={signNoFiles}
+          disabled={disabled}
           onClick={this.handleFileListClick}
         />
       </div>
