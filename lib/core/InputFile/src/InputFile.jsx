@@ -160,6 +160,7 @@ class InputFile extends Component {
       fileListComponent,
       signNoFiles,
       buttonText,
+      disabled,
     } = this.props
 
     const { error, fileList } = this.state
@@ -173,6 +174,7 @@ class InputFile extends Component {
           name={name}
           buttonComponent={buttonComponent}
           buttonText={buttonText}
+          disabled={disabled}
           accept={accept}
           capture={capture}
           multiple={multiple}

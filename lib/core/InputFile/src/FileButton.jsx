@@ -44,6 +44,7 @@ class FileButton extends Component {
       name,
       buttonComponent,
       buttonText = 'Загрузить',
+      disabled,
       accept,
       capture,
       multiple,
@@ -56,11 +57,12 @@ class FileButton extends Component {
         text={buttonText}
         prefix={<Upload />}
         onClick={onClick}
+        disabled={disabled}
       />
     )
 
     if (typeof buttonComponent === 'function') {
-      Component = buttonComponent({ onClick: this.handleButtonClick })
+      Component = buttonComponent({ onClick: this.handleButtonClick, buttonText, disabled })
     }
 
     return (
@@ -78,6 +80,7 @@ class FileButton extends Component {
           capture={capture}
           multiple={multiple}
           onChange={onChange}
+          disabled={disabled}
         />
       </div>
     )
