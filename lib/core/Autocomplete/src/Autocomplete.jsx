@@ -111,14 +111,12 @@ const Autocomplete = ({
 
   const inputValueUpdate = useCallback((value) => {
     if (typeof value === 'string') {
-      setInternalInputValue(value)
-      return
+      return setInternalInputValue(value)
     }
     if (isMultiple) {
-      setInternalInputValue('')
-    } else {
-      setInternalInputValue(getLabel(internalValue) || "")
+      return setInternalInputValue('')
     }
+    return setInternalInputValue(internalValue ? getLabel(internalValue) || '' : '')
   }, [isMultiple, internalValue])
 
   const handleSelectOption = useCallback(() => {
@@ -256,7 +254,7 @@ const Autocomplete = ({
 
   useEffect(() => {
     if(!isMultiple) {
-      internalValue && inputValueUpdate() //setInternalInputValue(getLabel(internalValue))
+      inputValueUpdate() //setInternalInputValue(getLabel(internalValue))
     }
   }, [internalValue, isMultiple])
 
