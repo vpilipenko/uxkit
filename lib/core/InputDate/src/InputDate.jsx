@@ -68,6 +68,9 @@ class InputDate extends Component {
       toMonth,
       size,
       error,
+      placeholder,
+      fullWidth,
+      style,
       ...other
     } = this.props
     const {
@@ -97,13 +100,15 @@ class InputDate extends Component {
         overlayComponent={p => <CustomOverlay referenceElement={inputEl} {...p}/>}
         formatDate={formatDate}
         parseDate={parseDate}
-        placeholder='ДД.ММ.ГГГГ'
+        placeholder={placeholder || 'ДД.ММ.ГГГГ'}
         inputProps={{
           mask: '99.99.9999',
           maskChar: null,
           size: size,
+          fullWidth,
           error,
         }}
+        style={{ ...style, width: fullWidth ? '100%' : undefined }}
         ref={this.handleInputRef}
         dayPickerProps={{
           localeUtils: MomentLocaleUtils,
