@@ -73,6 +73,7 @@ const Autocomplete = ({
   fullWidth = false,
   maxOptionsHeight = 300,
   inputProps,
+  placeholder,
   ...other
 }) => {
   const [referenceElement, setReferenceElement] = useState(null);
@@ -102,7 +103,7 @@ const Autocomplete = ({
       )
   )
 
-  const [internalInputPlaceholder, setInternalInputPlaceholder] = useState('')
+  const [internalInputPlaceholder, setInternalInputPlaceholder] = useState(placeholder)
   const [internalFocusIndex, setInternalFocusIndex] = useState(focusIndex)
   const [isInputFocused, setInputFocused] = useState(false)
   const [isOpen, setIsOpen] = useState(defaultOpen)
@@ -376,6 +377,7 @@ const Autocomplete = ({
         autoFocus={autoFocus}
         fullWidth={fullWidth}
         autoComplete='off'
+        placeholder={internalInputPlaceholder}
         {...inputProps}
       />
       <div>
