@@ -48,9 +48,9 @@ const LicensePlate = ({
 
     return (
       <div id={id} className={cx({
+        [classes.invalid]: !!classes.invalid,
         [cm.license_plate]: true,
         [cm.invalid]: true,
-        [classes.invalid]: !!classes.invalid,
       })}>
         {text}
       </div>
@@ -60,22 +60,22 @@ const LicensePlate = ({
 
   return (
     <div id={id} className={cx({
+      [classes.root]: !!classes.root,
       [cm.root]: true,
       [cm[`size-${size}`]]: !!size,
-      [classes.root]: !!classes.root,
     })}>
       <If condition={number}>
         <span className={cx({
-          [cm.number]: true,
           [classes.number]: !!classes.number,
+          [cm.number]: true,
         })}>
           {number}
         </span>
       </If>
       <If condition={region}>
         <span className={cx({
-          [cm.region]: true,
           [classes.region]: !!classes.region,
+          [cm.region]: true,
         })}>
           {region}
         </span>
