@@ -1,6 +1,6 @@
 import cm from './LicensePlate.module.styl'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import PropTypes from 'prop-types'
 import cx from 'classnames'
@@ -17,33 +17,18 @@ const LicensePlate = ({
   classes,
   invalidText,
 }) => {
-  const [initialValue, setInitialValue] = useState('')
-  const [initialType, setInitialType] = useState('')
-  const [isParsed, setIsParsed] = useState(false)
+  const parsedValue = parseValue(value)
+  const parsedType = type || parseType(parsedValue)
+  isValid && isValid(!!parsedType, parsedType, parsedValue)
 
-  useEffect(() => {
-    if (!isParsed) {
-      setIsParsed(true)
-    }
-    const v = parseValue(value)
-    const t = type || parseType(v)
-    isValid && isValid(!!t, t, v)
-    setInitialType(t)
-    setInitialValue(v)
-  }, [isValid, value, type])
-
-
-  const { number, region } = getResult(initialType, initialValue)
-
-
-  if (!isParsed) { return null }
+  const { number, region } = getResult(parsedType, parsedValue)
 
 
   if (!number && !region) {
     let text = invalidText
 
     if (typeof(invalidText) === 'function') {
-      text = invalidText({ value: initialValue })
+      text = invalidText({ value: parsedValue })
     }
 
     return (
@@ -116,8 +101,12 @@ LicensePlate.defaultProps = {
 
 export default LicensePlate
 
-
+const getResultCache = {}
 const getResult = (type, value) => {
+  const key = `${type}__${value}`
+
+  if (getResultCache[key]) { return getResultCache[key] }
+
   let result = {
     number: '',
     region: '',
@@ -139,11 +128,13 @@ const getResult = (type, value) => {
       break
   }
 
+  getResultCache[key] = result
+
   return result
 }
 
 
-const typeCache = {}
+const parseTypeCache = {}
 // Тип 1 -> Регистрационные знаки легковых, грузовых автомобилей и автобусов
 const type1 = /^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{1}\d{3}[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}\d{2,3}$/g
 // Тип 1Б -> Регистрационные знаки для легковых такси, транспортных средств, оборудованных для перевозок более восьми человек, осуществляющих перевозку на основании лицензии
@@ -153,20 +144,20 @@ const type2 = /^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}\d{6}$/g
 
 const parseType = string => {
   if (!string) { return '' }
-  if (typeCache[string]) { return typeCache[string] }
+  if (parseTypeCache[string]) { return parseTypeCache[string] }
 
   if (type1.test(string)) {
-    typeCache[string] = 'type1'
+    parseTypeCache[string] = 'type1'
     return 'type1'
   }
 
   if (type1b.test(string)) {
-    typeCache[string] = 'type1b'
+    parseTypeCache[string] = 'type1b'
     return 'type1b'
   }
 
   if (type2.test(string)) {
-    typeCache[string] = 'type2'
+    parseTypeCache[string] = 'type2'
     return 'type2'
   }
 
@@ -174,69 +165,54 @@ const parseType = string => {
 }
 
 
-const valueCache = {}
+const parseValueCache = {}
 const parseValue = string => {
   if (!string) { return '' }
-  if (valueCache[string]) { return valueCache[string]}
+  if (parseValueCache[string]) { return parseValueCache[string]}
 
   let value = string.toUpperCase()
   value = value.replace(/\s/g, '')
   value = toCyrillic(value)
 
-  valueCache[string] = value
+  parseValueCache[string] = value
   return value
 }
 
-const resultCache = {}
+
+
 const resultType1 = string => {
-  if (resultCache[string]) { return resultCache[string] }
-
-
   const value = string.match(/^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{1}|\d{3}|[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}|\d{2,3}/g) || []
   const serieStart = value[0]
   const number = value[1]
   const serieEnd = value[2]
   const region = value[3]
 
-  const result = {
+  return {
     number: `${serieStart} ${number} ${serieEnd}`,
     region,
   }
-
-  resultCache[string] = result
-  return result
 }
 
 const resultType1b = string => {
-  if (resultCache[string]) { return resultCache[string] }
-
   const value = string.match(/^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}|\d{3}|\d+/g) || []
   const serie = value[0]
   const number = value[1]
   const region = value[2]
 
-  const result = {
+  return {
     number: `${serie} ${number}`,
     region,
   }
-
-  resultCache[string] = result
-  return result
 }
 
 const resultType2 = string => {
-  if (resultCache[string]) { return resultCache[string] }
-
   const value = string.match(/^[ABEKMHOPCTYXАВЕКМНОРСТУХ]{2}|\d{4}|\d+/g) || []
   const serie = value[0]
   const number = value[1]
   const region = value[2]
 
-  const result = {
+  return {
     number: `${serie} ${number}`,
     region,
   }
-
-  resultCache[string] = result
-  return result
 }
