@@ -17,7 +17,6 @@ const CollapseBtn = props => {
       <div className={cm.btn}>
         <span></span>
         <span></span>
-        <span></span>
       </div>
     </div>
   )
