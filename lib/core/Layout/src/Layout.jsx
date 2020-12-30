@@ -11,8 +11,11 @@ import NavRenderer from './NavRenderer'
 import CollapseBtn from './CollapseBtn'
 import NavItem from './NavItem'
 
-import { set, cloneDeep } from 'lodash'
+import set from 'lodash/set';
+import cloneDeep from 'lodash/clone'
+import isBoolean from 'lodash/isBoolean'
 
+const STORAGE_COLLAPSE_KEY = 'ux-layout-collapsed'
 
 class Layout extends Component {
 
@@ -53,24 +56,46 @@ class Layout extends Component {
     onLogoutClick: PropTypes.func,
     /** If layout collapsed controlled you may use this handler to track events */
     onProbablyCollapsed: PropTypes.func,
-
-    header: PropTypes.any, // TODO
-    footer: PropTypes.any, // TODO
+    /** Fire window.resize event by change collapse  */
+    useWindowResize: PropTypes.bool,
+    /** save collapse state in window.localStorage  */
+    useLocalStorage: PropTypes.bool,
+    /** Header container */
+    header: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
+    /** Footer container */
+    footer: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
+    id: PropTypes.string,
   };
 
   static defaultProps = {
     nav: [],
     logoutText: 'Выход из системы',
     navItemComponent: 'div',
+    useWindowResize: true,
+    useLocalStorage: true
   }
-
 
   constructor(props) {
     super(props)
     const { nav, collapsed, defaultCollapsed, layoutHeight } = props
+    const storageCollapsed = this._getStorageCollapsed();
+    const isCollapsed = isBoolean(collapsed)
+        ? collapsed
+        : props.useLocalStorage && isBoolean(storageCollapsed)
+          ? storageCollapsed
+          : isBoolean(defaultCollapsed)
+            ? defaultCollapsed
+            : false;
+
     this.state = {
       nav: nav,
-      collapsed: collapsed ? collapsed : defaultCollapsed ? defaultCollapsed : false,
+      collapsed: isCollapsed,
       layoutHeight: layoutHeight ? layoutHeight : window.innerHeight,
     }
     if (!layoutHeight) {
@@ -78,20 +103,38 @@ class Layout extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { nav, collapsed } = this.props
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      nav,
+      collapsed,
+      useLocalStorage,
+      id,
+      useWindowResize,
+    } = this.props
 
-    const prevCollapsed = prevProps.collapsed
-    const curCollapsed = collapsed
-    if (prevCollapsed !== curCollapsed) {
+    if (prevProps.collapsed !== collapsed) {
       this.setState({ collapsed })
-      try {
-        window.dispatchEvent(new Event('resize'))
-      } catch(e) {}
+    }
+
+    if (prevState.collapsed !== this.state.collapsed) {
+      if (useLocalStorage) {
+        let key = STORAGE_COLLAPSE_KEY
+        if (id) {
+          key = `${key}_${id}`
+        }
+        localStorage.setItem(key, this.state.collapsed)
+      }
+
+      if (useWindowResize) {
+        try {
+          window.dispatchEvent(new Event('resize'))
+        } catch(e) {}
+      }
     }
 
     const prevNav = JSON.stringify(prevProps.nav)
     const curNav = JSON.stringify(nav)
+  
     if (prevNav !== curNav) {
       this.setState({ nav })
     }
@@ -101,11 +144,26 @@ class Layout extends Component {
     window.addEventListener('resize', _ => this.setState({ layoutHeight: window.innerHeight }))
   }
 
-
   _toggleCollapsed = _ => {
     this.setState(prevState => ({ collapsed: !prevState.collapsed }))
   }
 
+  _getStorageCollapsed = () => {
+    const { id } = this.props
+    let key = STORAGE_COLLAPSE_KEY
+    if (id) {
+      key = `${key}_${id}`
+    }
+    let storageCollapsed = localStorage.getItem(key);
+
+    if (storageCollapsed) {
+      try {
+        storageCollapsed = JSON.parse(storageCollapsed);
+      } catch (e) {}
+    }
+
+    return storageCollapsed;
+  }
 
   handleClick = e => {
     const {
@@ -181,7 +239,6 @@ class Layout extends Component {
     }
   }
 
-
   render() {
     const {
       logo,
@@ -189,6 +246,9 @@ class Layout extends Component {
       logoutText,
       onLogoutClick,
       children,
+      header,
+      footer,
+      id,
     } = this.props
 
     const {
@@ -196,6 +256,10 @@ class Layout extends Component {
       collapsed,
       layoutHeight,
     } = this.state
+
+    const Header = header ? header : 'header'
+    const Footer = footer ? footer : 'footer'
+
 
     return (
       <div
@@ -205,31 +269,44 @@ class Layout extends Component {
         style={{
           height: layoutHeight,
         }}
+        id={id}
       >
+
         <div
           className={cm.menu}
           data-type={'menu'}
           onClick={this.handleClick}
         >
-          <If condition={logo}>
-            <div className={cm.logo}>{logo}</div>
-          </If>
-          <If condition={nav || onLogoutClick}>
-            <div className={cm.nav}>
-              <If condition={nav}>
-                <NavRenderer nav={nav} navItemComponent={navItemComponent} />
+          <If condition={header || logo}>
+            <Header className={cm.header}>
+              <If condition={logo}>
+                <div className={cm.logo}>{logo}</div>
               </If>
+            </Header>
+          </If>
+
+          <If condition={nav}>
+            <div className={cm.nav}>
+              <NavRenderer
+                nav={nav}
+                navItemComponent={navItemComponent}
+              />
+            </div>
+          </If>
+
+          <If condition={footer || onLogoutClick}>
+            <Footer className={cm.footer}>
               <If condition={onLogoutClick}>
                 <NavItem
-                  component='div'
+                  component={navItemComponent}
                   data-type={'logout_btn'}
-                  className={cm.nav_item_exit}
                   text={logoutText}
                 />
               </If>
-            </div>
+            </Footer>
           </If>
         </div>
+
         <div
           className={cm.content}
           data-type={'content'}
@@ -245,3 +322,4 @@ class Layout extends Component {
 
 
 export default Layout
+export { NavItem }

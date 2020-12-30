@@ -4,16 +4,16 @@ import React from 'react'
 
 import cx from 'classnames'
 
-const NavItem = props => {
-  const {
-    text,
-    active,
-    component,
-    className,
-    suffix,
-    prefix,
-    ...other
-  } = props
+const NavItem = ({
+  text,
+  active,
+  component,
+  className,
+  suffix,
+  prefix,
+  children,
+  ...other
+}) => {
 
   const Component = component ? component : 'div'
 
@@ -25,6 +25,7 @@ const NavItem = props => {
       itemActiveClass: cm.nav_item_active,
       suffix,
       prefix,
+      children,
       ...other,
     })
   }
@@ -45,7 +46,7 @@ const NavItem = props => {
           {prefix}
         </div>
       </If>
-      {text}
+      {children || text}
       <If condition={suffix}>
         <div className={cm.nav_item_suffix}>
           {suffix}
