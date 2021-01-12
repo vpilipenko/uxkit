@@ -71,6 +71,8 @@ class InputDate extends Component {
       placeholder,
       fullWidth,
       style,
+      inputProps,
+      disabled,
       ...other
     } = this.props
     const {
@@ -107,6 +109,8 @@ class InputDate extends Component {
           size: size,
           fullWidth,
           error,
+          disabled,
+          ...inputProps,
         }}
         style={{ ...style, width: fullWidth ? '100%' : undefined }}
         ref={this.handleInputRef}
