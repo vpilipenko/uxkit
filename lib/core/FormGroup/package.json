@@ -1,7 +1,7 @@
 {
     "name": "@apass/form-group",
     "description": "FormGroup component",
-    "version": "0.2.8",
+    "version": "0.2.9",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
