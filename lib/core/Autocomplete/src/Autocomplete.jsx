@@ -4,14 +4,14 @@ import EventListener from 'react-event-listener'
 import isHotkey from 'is-hotkey'
 const { usePopper } = require('react-popper')
 
-import Input from '@apass/input'
-require('@apass/input/dist/styles.css')
+import Input from '@vpilipenko/input'
+require('@vpilipenko/input/dist/styles.css')
 
-import Menu from '@apass/menu'
-require('@apass/menu/dist/styles.css')
+import Menu from '@vpilipenko/menu'
+require('@vpilipenko/menu/dist/styles.css')
 
-import MenuItem from '@apass/menu-item'
-require('@apass/menu-item/dist/styles.css')
+import MenuItem from '@vpilipenko/menu-item'
+require('@vpilipenko/menu-item/dist/styles.css')
 
 import Portal from './Portal'
 

@@ -5,8 +5,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import Radio from '@apass/radio'
-import '@apass/radio/dist/styles.css'
+import Radio from '@vpilipenko/radio'
+import '@vpilipenko/radio/dist/styles.css'
 
 
 class RadioGroup extends Component {

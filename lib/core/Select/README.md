@@ -3,7 +3,7 @@
 Component of an Select text field.
 
 ```js
-  import Select from '@apass/select'
+  import Select from '@vpilipenko/select'
 ```
 <!-- STORY -->
 <br/>

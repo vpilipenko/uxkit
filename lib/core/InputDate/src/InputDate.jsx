@@ -14,16 +14,16 @@ import MomentLocaleUtils, {
 } from 'react-day-picker/moment'
 import './style.css'
 
-import InputMasked from '@apass/input-masked'
-import '@apass/input-masked/dist/styles.css'
+import InputMasked from '@vpilipenko/input-masked'
+import '@vpilipenko/input-masked/dist/styles.css'
 
-import Select from '@apass/select'
-import '@apass/select/dist/styles.css'
+import Select from '@vpilipenko/select'
+import '@vpilipenko/select/dist/styles.css'
 
-import IconButton from '@apass/icon-button'
-import '@apass/icon-button/dist/styles.css'
+import IconButton from '@vpilipenko/icon-button'
+import '@vpilipenko/icon-button/dist/styles.css'
 
-import { ArrowLeft, ArrowRight } from '@apass/icons'
+import { ArrowLeft, ArrowRight } from '@vpilipenko/icons'
 
 import Portal from './Portal'
 

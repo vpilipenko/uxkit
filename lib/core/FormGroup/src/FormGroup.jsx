@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-const Text = require('@apass/text')
+const Text = require('@vpilipenko/text')
 
 
 class FormGroup extends Component {

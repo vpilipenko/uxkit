@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import Input from '@apass/input'
-import '@apass/input/dist/styles.css'
+import Input from '@vpilipenko/input'
+import '@vpilipenko/input/dist/styles.css'
 import InputMask from 'react-input-mask'
 
 

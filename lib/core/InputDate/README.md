@@ -3,7 +3,7 @@
 InputDate component
 
 ```js
-  import InputDate from '@apass/input-date'
+  import InputDate from '@vpilipenko/input-date'
 ```
 <!-- STORY -->
 

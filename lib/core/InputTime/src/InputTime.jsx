@@ -9,12 +9,12 @@ import { Manager, Reference, Popper } from 'react-popper'
 import Portal from './Portal'
 import Column from './Column'
 
-import InputMasked from '@apass/input-masked'
-import '@apass/input-masked/dist/styles.css'
-import Menu from '@apass/menu'
-import '@apass/menu/dist/styles.css'
-import MenuItem from '@apass/menu-item'
-import '@apass/menu-item/dist/styles.css'
+import InputMasked from '@vpilipenko/input-masked'
+import '@vpilipenko/input-masked/dist/styles.css'
+import Menu from '@vpilipenko/menu'
+import '@vpilipenko/menu/dist/styles.css'
+import MenuItem from '@vpilipenko/menu-item'
+import '@vpilipenko/menu-item/dist/styles.css'
 
 import { timeParser, findClosest } from './utils'
 

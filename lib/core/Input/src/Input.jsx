@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 
-const { Cross } = require('@apass/icons')
+const { Cross } = require('@vpilipenko/icons')
 
 
 export class Input extends Component {

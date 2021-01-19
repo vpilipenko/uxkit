@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-const { Check } = require('@apass/icons')
+const { Check } = require('@vpilipenko/icons')
 
 
 class Checkbox extends Component {

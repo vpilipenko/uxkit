@@ -5,14 +5,14 @@ import PropTypes from 'prop-types'
 
 const { Manager, Reference, Popper } = require('react-popper')
 
-import Menu from '@apass/menu'
-require('@apass/menu/dist/styles.css')
+import Menu from '@vpilipenko/menu'
+require('@vpilipenko/menu/dist/styles.css')
 
-import MenuItem from '@apass/menu-item'
-require('@apass/menu-item/dist/styles.css')
+import MenuItem from '@vpilipenko/menu-item'
+require('@vpilipenko/menu-item/dist/styles.css')
 
-import Text from '@apass/text'
-require('@apass/text/dist/styles.css')
+import Text from '@vpilipenko/text'
+require('@vpilipenko/text/dist/styles.css')
 
 import { findClosest, getElIndex } from './utils'
 

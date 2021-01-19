@@ -3,7 +3,7 @@
 Icon components
 
 ```js
-  import { Cross } from '@apass/icons'
+  import { Cross } from '@vpilipenko/icons'
 ```
 <!-- STORY -->
 
