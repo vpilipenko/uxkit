@@ -1,7 +1,7 @@
 {
     "name": "@apass/heading",
     "description": "Heading component",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",

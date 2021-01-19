@@ -1,7 +1,7 @@
 {
     "name": "@apass/input-time",
     "description": "InputTime component",
-    "version": "0.2.14",
+    "version": "0.2.15",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",

@@ -1,7 +1,7 @@
 {
     "name": "@apass/input-masked",
     "description": "InputMasked component",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",

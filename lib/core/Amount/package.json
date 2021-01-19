@@ -1,7 +1,7 @@
 {
     "name": "@apass/amount",
     "description": "Amount component",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
