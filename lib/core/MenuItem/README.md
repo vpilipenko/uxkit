@@ -3,8 +3,8 @@
 MenuItem component
 
 ```js
-  import Menu from '@vpilipenko/menu'
-  import MenuItem from '@vpilipenko/menu-item'
+  import Menu from '@apass/menu'
+  import MenuItem from '@apass/menu-item'
 ```
 <!-- STORY -->
 

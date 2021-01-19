@@ -3,7 +3,7 @@
 InputTime component
 
 ```js
-  import InputTime from '@vpilipenko/input-time'
+  import InputTime from '@apass/input-time'
 ```
 <!-- STORY -->
 

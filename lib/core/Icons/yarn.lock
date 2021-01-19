@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@vpilipenko/icon@0.0.4":
+"@apass/icon@0.0.4":
   version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@vpilipenko/icon/-/icon-0.0.4.tgz#74b67286a0bce4c2f877ece751465be348dc1349"
+  resolved "https://registry.yarnpkg.com/@apass/icon/-/icon-0.0.4.tgz#74b67286a0bce4c2f877ece751465be348dc1349"
   integrity sha512-3kE+Oqp4L5krTLFCduf9ElVllsuMhcs133kRoo/ZEdiRtWqBz51BQWOK4+irV0mYJD6+2Hs3MoqwqdYOr9fFMQ==

@@ -3,7 +3,7 @@ import cm from './Dropdown.module.styl'
 import React, { useState, useEffect } from 'react'
 
 import NavItem from './NavItem'
-import { ArrowDown, ArrowTop } from '@vpilipenko/icons'
+import { ArrowDown, ArrowTop } from '@apass/icons'
 
 const Dropdown = ({
   title,

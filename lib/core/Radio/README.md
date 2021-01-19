@@ -3,7 +3,7 @@
 Radio component
 
 ```js
-  import Radio from '@vpilipenko/radio'
+  import Radio from '@apass/radio'
 ```
 <!-- STORY -->
 

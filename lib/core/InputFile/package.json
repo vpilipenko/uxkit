@@ -23,8 +23,8 @@
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54",
     "dependencies": {
-        "@vpilipenko/button": "^0.2.6",
-        "@vpilipenko/icon-button": "^0.2.4",
-        "@vpilipenko/icons": "^0.2.13"
+        "@apass/button": "^0.2.6",
+        "@apass/icon-button": "^0.2.4",
+        "@apass/icons": "^0.2.13"
     }
 }

@@ -68,7 +68,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@vpilipenko/menu-item": "^0.2.10",
+    "@apass/menu-item": "^0.2.10",
     "classnames": "^2.2.6",
     "react": "16.13.1",
     "react-dom": "16.13.1"

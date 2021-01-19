@@ -23,7 +23,7 @@
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54",
     "dependencies": {
-        "@vpilipenko/icons": "^0.2.13",
+        "@apass/icons": "^0.2.13",
         "lodash": "^4.17.20"
     }
 }

@@ -3,7 +3,7 @@
 Radio buttons component
 
 ```js
-  import RadioGroup from '@vpilipenko/radio-group'
+  import RadioGroup from '@apass/radio-group'
 ```
 <!-- STORY -->
 <br/>

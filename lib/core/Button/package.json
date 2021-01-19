@@ -23,8 +23,8 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@vpilipenko/amount": "^0.2.4",
-        "@vpilipenko/icons": "^0.0.21"
+        "@apass/amount": "^0.2.4",
+        "@apass/icons": "^0.0.21"
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }
