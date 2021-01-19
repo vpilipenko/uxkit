@@ -1,7 +1,7 @@
 {
     "name": "@apass/input-date",
     "description": "InputDate component",
-    "version": "0.1.26",
+    "version": "0.1.27",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",

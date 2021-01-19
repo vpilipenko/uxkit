@@ -1,7 +1,7 @@
 {
     "name": "@apass/radio-group",
     "description": "RadioGroup component",
-    "version": "0.2.7",
+    "version": "0.2.8",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
