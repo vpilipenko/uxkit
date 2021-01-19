@@ -1,7 +1,7 @@
 {
     "name": "@apass/input-date",
     "description": "InputDate component",
-    "version": "0.1.25",
+    "version": "0.1.26",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -21,11 +21,11 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
+        "@apass/icon-button": "^0.2.6",
+        "@apass/icons": "^0.2.15",
+        "@apass/input-masked": "^0.2.9",
+        "@apass/select": "^0.2.16",
         "@popperjs/core": "^2.4.4",
-        "@apass/icon-button": "^0.2.4",
-        "@apass/icons": "^0.2.13",
-        "@apass/input-masked": "^0.2.7",
-        "@apass/select": "^0.2.14",
         "moment": "^2.27.0",
         "react-day-picker": "^7.4.8",
         "react-popper": "^2.2.3"

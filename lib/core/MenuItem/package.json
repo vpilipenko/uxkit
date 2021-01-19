@@ -1,7 +1,7 @@
 {
     "name": "@apass/menu-item",
     "description": "MenuItem component",
-    "version": "0.2.16",
+    "version": "0.2.17",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -22,7 +22,7 @@
         "react-dom": "^16.13.1"
     },
     "dependencies": {
-        "@apass/icons": "^0.2.13"
+        "@apass/icons": "^0.2.15"
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }

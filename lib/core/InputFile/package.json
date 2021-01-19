@@ -1,7 +1,7 @@
 {
     "name": "@apass/input-file",
     "description": "InputFile component",
-    "version": "1.2.16",
+    "version": "1.2.17",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -23,8 +23,8 @@
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54",
     "dependencies": {
-        "@apass/button": "^0.2.6",
-        "@apass/icon-button": "^0.2.4",
-        "@apass/icons": "^0.2.13"
+        "@apass/button": "^0.2.8",
+        "@apass/icon-button": "^0.2.6",
+        "@apass/icons": "^0.2.15"
     }
 }

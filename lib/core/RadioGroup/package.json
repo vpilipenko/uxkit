@@ -1,7 +1,7 @@
 {
     "name": "@apass/radio-group",
     "description": "RadioGroup component",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "license": "MIT",
     "author": "Vasiliy Pilipenko",
     "main": "dist/index.js",
@@ -21,7 +21,7 @@
         "react-dom": "^16.8.2"
     },
     "dependencies": {
-        "@apass/radio": "^0.2.4"
+        "@apass/radio": "^0.2.6"
     },
     "gitHead": "1bd4acb20d38e0bef721114d035168449f42ee54"
 }
