@@ -13,7 +13,7 @@
     ],
     "scripts": {
         "build": "NODE_ENV=production rollup --config ../../../rollup.config.js",
-        "clean": "rimraf dist && rimraf node_modules && rimraf package-lock.json",
+        "clean": "rm -rf dist node_modules package-lock.json yarn.lock",
         "analyze": "webpack-bundle-analyzer stats.json dist/ -h 192.168.102.15",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -22,11 +22,11 @@
         "react-dom": "^16.13.1"
     },
     "dependencies": {
-        "@apass/icons": "^0.1.3",
-        "@apass/menu": "^0.0.7",
-        "@apass/menu-item": "^0.1.3",
-        "@apass/text": "^0.0.19",
         "@popperjs/core": "^2.3.2",
+        "@vpilipenko/icons": "^0.2.13",
+        "@vpilipenko/menu": "^0.0.7",
+        "@vpilipenko/menu-item": "^0.2.15",
+        "@vpilipenko/text": "^0.0.19",
         "popper.js": "^1.16.1",
         "react-popper": "^2.2.2"
     },
